@@ -29,6 +29,8 @@ Lock_members={MMP_LOCKM}
  * @license {MMP_LICENSE}
 
 <!-- BEGIN: CONF_VAR -->
+
+Allowed Var types:
 var1=11:select:0,1,2,3,4,5,6:3:Description
 var2=12:radio:0,1:1:Enable this
 var3=13:string::test:Test string
