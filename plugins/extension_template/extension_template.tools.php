@@ -15,7 +15,17 @@ Hooks=tools
  */
 
 if (!defined('COT_CODE') && !defined('COT_PLUG')) { die('Wrong URL ('.array_pop(explode("\\",__FILE__)).').'); }
-//require_once cot_incfile('extension_template', 'plug');
+
+/*
+ * TODO: Extended plugin
+ *  - add sample plugin icon
+ *  - make default CSS and TPL file creation on TPL folder
+ *  - add cot_import
+ *  - use Forms API to render form fields
+ *  - design structure table on creation LOG page
+ *  - refactoring
+ *
+ **/
 
 $plug_name = 'extension_template';
 $base_path = $cfg['plugins_dir']."/$plug_name";
@@ -30,7 +40,6 @@ $inc_path  = "$base_path/inc";
 $tpl_path  = "$base_path/tpl";
 $ajax_link = "plug.php?r=$plug_name";
 
-//require_once($cfg['lib_dir']."mck/common.php");
 require_once cot_incfile($plug_name, 'plug');
 
 switch ($a) {
@@ -41,13 +50,13 @@ switch ($a) {
                 $tpl_arr[$keys[substr($k,4)-1]] = $v;
             }
         }
-        $plf = $_POST['plf'];
+        $plf = cot_import('plf','P','ARR');//$_POST['plf'];
         $plugin_body .= $L['mplug_creating'].'<br /><br />';
         $base_folder = $cfg['plugins_dir']."/$plug_name/created/";
         $main_folder = $base_folder.$tpl_arr['MMP_PLUGNAME'].'/';
-        //$struct_folders = array('inc','js','tpl')
+
         if (file_exists($main_folder) || @mkdir($main_folder,0777,true)) { // makes Extension base folder
-            if ($plf['makedirs']) { // if subfolders туувув
+            if ($plf['makedirs']) { // if subfolders needed
                 $dirs = explode(',',$plf['dirsname']);
                 if ($mode=='cot') {
                 	array_push($dirs,'setup');
@@ -84,7 +93,7 @@ switch ($a) {
                     $plugin_body .= $L['mplug_written'].file_put_contents($main_folder.$file_name,$part_tpl->text('MAIN')).$L['mplug_bytes'].$file_name.'</b><br />';
                 }
             }
-            $plug = $_POST['plug'];
+            $plug = cot_import('plug','P','ARR');
             foreach ($plug as $k1 => $v1) { // makes addintion files with related templates
                 if ($v1['used']) {
                     $pl_file[$k1]['name'] = $v1['name'];
