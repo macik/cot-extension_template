@@ -1,0 +1,29 @@
+#options {
+  margin:15px;
+}
+
+span.mrg {
+   margin-left:40px;
+}
+
+#mainopt {
+  margin:10px;
+}
+
+#mainopt div.chk {
+  margin-bottom:7px;
+}
+
+#addon {
+	margin-left:10px;
+}
+
+#addon input.add {
+	margin: 0px;
+	margin-left:15px;
+	margin-top: 5px;
+}
+
+.typeselect{
+	margin: 20px;
+}
