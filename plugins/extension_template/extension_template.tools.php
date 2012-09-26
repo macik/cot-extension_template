@@ -20,6 +20,8 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) { die('Wrong URL ('.array_pop(
  * TODO: Extended plugin
  *  - add sample plugin icon
  *  - make default CSS and TPL file creation on TPL folder
+ *  - add reset setting button and save options through plugin creating screen (to make another one with same settings)
+ *  - save settings as profiles
  *  - add cot_import
  *  - use Forms API to render form fields
  *  - design structure table on creation LOG page
