@@ -142,7 +142,7 @@ MMP_TAGS >> example.tpl:{EXAMPLE_TAG}
 MMP_COPYRIGHT >> Copyright (c) 2011-{PHP|date("Y")}
 MMP_AUTHOR_NAME >> {PHP.cfg.plugin.extension_template.author}
 MMP_MISCINFO >>  - If your enjoy my plugin please consider donating to help support future developments<br />[url]mailto:{PHP.cfg.plugin.extension_template.email}[/url]<br />Thanks
-MMP_LICENSE >> Distributed under BSD License.
+MMP_LICENSE >> Distributed under {PHP.cfg.plugin.extension_template.licence} License.
 MMP_PLUGLANG >> en
 MMP_PLUGPATH >> plugins
 MMP_VERSION >> 0.6
@@ -180,7 +180,7 @@ MMP_TAGS >> example.tpl:{EXAMPLE_TAG}
 MMP_COPYRIGHT >> Copyright (c) 2011-{PHP|date("Y")}
 MMP_AUTHOR_NAME >> {PHP.cfg.plugin.extension_template.author}
 MMP_NOTES >> If your enjoy my plugin please consider donating to help support future developments. Thanks! mailto:{PHP.cfg.plugin.extension_template.email}
-MMP_LICENSE >> Distributed under {PHP.cfg.plugin.extension_template.licance} license.
+MMP_LICENSE >> Distributed under {PHP.cfg.plugin.extension_template.licence} license.
 MMP_PLUGLANG >> en
 MMP_PLUGPATH >> plugins
 MMP_VERSION >> 1.0
