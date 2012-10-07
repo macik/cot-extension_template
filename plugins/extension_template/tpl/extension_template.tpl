@@ -78,8 +78,8 @@ $(document).ready( function() {
 </div>
 <div id="addon"><strong>{PHP.L.mplug_addon}</strong> (ajax, header, tools, rc, ...):
     &nbsp;<a href="#" onClick="addF(); return false;">({PHP.L.Add})</a><br />
-    <input class="add" type="checkbox" name="plug[0][used]" value="1" />
-    &nbsp;<span id="plug_ttl" class="ttl">plug_filename</span>.<input name="plug[0][name]" type="text" value="header" />
+    <label for="addon_0"><input id="addon_0" class="add" type="checkbox" name="plug[0][used]" value="1" />
+    &nbsp;<span id="plug_ttl" class="ttl">plug_filename</span></label>.<input name="plug[0][name]" type="text" value="header" />
 <div id="cf"></div>
 </div>
 <div id="SIENA_res"  style="display:block;" class="chk"><strong>{PHP.L.mplug_common}</strong> (functions, resource):<br/>
@@ -111,7 +111,7 @@ $(document).ready( function() {
    var i=$('div[id^="dyn"]').length+1;
    var w="'";
    var pni = $('#pni').val();
-   $('#cf').append('<div id="dyn'+i+'"><input class="add" type="checkbox" name="plug['+i+'][used]" value="1" />&nbsp;&nbsp;<span class="ttl">'+pni+'</span>.<input name="plug['+i+'][name]" type="text" value="header" /><a href="#" onClick="$('+w+'#dyn'+i+w+').remove(); return false;">({PHP.L.Delete})</a></div>');
+   $('#cf').append('<div id="dyn'+i+'"><label for="addon_'+i+'"><input id="addon_'+i+'" class="add" type="checkbox" name="plug['+i+'][used]" value="1" />&nbsp;&nbsp;<span class="ttl">'+pni+'</span></label>.<input name="plug['+i+'][name]" type="text" value="header" /><a href="#" onClick="$('+w+'#dyn'+i+w+').remove(); return false;">({PHP.L.Delete})</a></div>');
  }
 </script>
 <!-- END: MAIN -->
