@@ -4,8 +4,8 @@
 Code=extension_template
 Name=Extension template
 Description=Generates sample (template) files for extension development
-Version=1.0
-Date=2012-Sep-25
+Version=1.1
+Date=2012-Oct-15
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2012, Andrey Matsovkin
 Notes=If your enjoy my plugin please consider donating to help support future developments. mailto: macik.spb@gmail.com   Thanks!
@@ -27,7 +27,7 @@ licence=04:select:MIT,GPL,BSD,CC-BY-SA:BSD:Licence type
  * Extension template plugin for Cotonti CMF
  *
  * @package extension_template
- * @version 1.0
+ * @version 1.1
  * @author Andrey Matsovkin
  * @copyright Copyright (c) 2008-2012
  * @license Distributed under BSD License.
