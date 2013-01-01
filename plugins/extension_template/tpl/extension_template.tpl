@@ -145,7 +145,7 @@ MMP_MISCINFO >>  - If your enjoy my plugin please consider donating to help supp
 MMP_LICENSE >> Distributed under {PHP.cfg.plugin.extension_template.licence} License.
 MMP_PLUGLANG >> en
 MMP_PLUGPATH >> plugins
-MMP_VERSION >> 0.6
+MMP_VERSION >> 1.0.0
 MMP_LANGDESC >>
 MMP_PLBEGIN >> [BEGIN_SED]
 MMP_PLEND >> [END_SED]
@@ -183,7 +183,7 @@ MMP_NOTES >> If your enjoy my plugin please consider donating to help support fu
 MMP_LICENSE >> Distributed under {PHP.cfg.plugin.extension_template.licence} license.
 MMP_PLUGLANG >> en
 MMP_PLUGPATH >> plugins
-MMP_VERSION >> 1.0
+MMP_VERSION >> 1.0.0
 MMP_LANGDESC >>
 MMP_PLBEGIN >> [BEGIN_COT_EXT]
 MMP_PLEND >> [END_COT_EXT]

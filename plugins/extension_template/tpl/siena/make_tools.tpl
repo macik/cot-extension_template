@@ -15,7 +15,6 @@ Hooks=tools
  */
 
 if (!defined('{MMP_CODEMARK}') && !defined('{MMP_SEDMARK}PLUG')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
-//require_once cot_incfile('{MMP_PLUGNAME}', 'plug');
 
 $plug_name = '{MMP_PLUGNAME}';
 $base_path = $cfg['plugins_dir']."/$plug_name";

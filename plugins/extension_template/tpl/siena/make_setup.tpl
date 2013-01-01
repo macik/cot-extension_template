@@ -23,7 +23,6 @@ Lock_members={MMP_LOCKM}
  * {MMP_PLUGTITLE} plugin for Cotonti CMF
  *
  * @package {MMP_PLUGNAME}
- * @version {MMP_VERSION}
  * @author {MMP_AUTHOR_NAME}
  * @copyright {MMP_COPYRIGHT}
  * @license {MMP_LICENSE}
@@ -38,6 +37,7 @@ var4=14:callback:cot_get_editors():markitup:Simple callback
 var5=15:separator:::Separator
 var6=16:range:0,5:1:Range
 var7=17:text:0,5:1,2:Text
+var8=18:custom:user_func():def_value:Description
 <!-- END: CONF_VAR -->
 
  */

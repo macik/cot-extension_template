@@ -21,8 +21,7 @@ $plug_name = '{MMP_PLUGNAME}';
 $ajax_link = cot_url('plug',array('r'=>$plug_name));
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', $r);
 cot_block($usr['auth_read']);
-require cot_incfile('{MMP_PLUGNAME}', 'plug', 'common');
-require cot_langfile('{MMP_PLUGNAME}','plug');
+//require cot_incfile('{MMP_PLUGNAME}', 'plug', 'common');
 
 header("Content-type: text/html; charset=utf-8");
 if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' || (strtolower($_SERVER['SERVER_NAME'])=='localhost') ) {
