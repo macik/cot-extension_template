@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * Localization file for Extension template
  * @author Andrey Matsovkin

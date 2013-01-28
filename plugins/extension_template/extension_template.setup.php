@@ -1,11 +1,11 @@
-<?PHP
+<?php
 /* ====================
 [BEGIN_COT_EXT]
 Code=extension_template
 Name=Extension template
 Description=Generates sample (template) files for extension development
-Version=1.1
-Date=2012-Oct-15
+Version=1.0.3
+Date=2013-jan-11
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2012, Andrey Matsovkin
 Notes=If your enjoy my plugin please consider donating to help support future developments. mailto: macik.spb@gmail.com   Thanks!
@@ -17,9 +17,11 @@ Lock_members=12345
 
 
 [BEGIN_COT_EXT_CONFIG]
+version=01:string::1.0.0:Initial version of plugin
 author=02:string::Your Name:Author name
 email=03:string::your_email@example.com:Your E-mail
 licence=04:select:MIT,GPL,BSD,CC-BY-SA:BSD:Licence type
+outputdir=05:string::datas\created\:Folder for output files
 [END_COT_EXT_CONFIG]
 ==================== */
 
@@ -27,7 +29,7 @@ licence=04:select:MIT,GPL,BSD,CC-BY-SA:BSD:Licence type
  * Extension template plugin for Cotonti CMF
  *
  * @package extension_template
- * @version 1.1
+ * @version 1.0.3
  * @author Andrey Matsovkin
  * @copyright Copyright (c) 2008-2012
  * @license Distributed under BSD License.

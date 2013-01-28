@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /* ====================
 [BEGIN_COT_EXT]
 Hooks=ajax
@@ -24,7 +24,6 @@ if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
 	$ajax_link = "plug.php?r=$plug_name";
 
 	require_once cot_incfile($plug_name, 'plug');
-	//require_once($cfg['lib_dir']."mck/common.php");
 
 	$count = 0;
 	foreach ($tpl_arr as $k => $v) { // makes form
@@ -34,7 +33,6 @@ if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
 		$in['text']= (in_array($k,$bold_tag)) ? "<b>$k</b>" : $k;
 		$tpl -> assign('in',$in);
 		$tpl->parse('PRM.INPUT_PRM');
-		//$fields .= '<input id="id_'.$count.'" name="prm_'.$count.'" type="text" size="40" value="'.$v.'"><label for="id_'.$count.'">&nbsp;'.$b1.$k.$b2.'</label><br />';
 	}
 	$tpl->parse('PRM');
 

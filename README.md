@@ -46,7 +46,8 @@ Main controls is accessible after install in Admin section of plugin
 
 To create a simple pack of plugin files just select Cotonti branch, enter plugin name and
 check these files you are needed. Then press «Create Extension template files» button.
-Generated files can be found in «created» subfolder.
+Generated files (you need write permission for that) can be found in folder configured in 
+Setting menu of plugin, or «created» subfolder in plugin folder.
 
 
 Install
