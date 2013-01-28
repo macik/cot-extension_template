@@ -1,4 +1,4 @@
-<!-- BEGIN: MAIN --><?PHP
+<!-- BEGIN: MAIN --><?php
 /* ====================
 {MMP_COPYRIGHT}, {MMP_AUTHOR_NAME}.
 All rights reserved. {MMP_LICENSE}

@@ -1,4 +1,4 @@
-<!-- BEGIN: MAIN --><?PHP
+<!-- BEGIN: MAIN --><?php
 /* ====================
 {MMP_PLBEGIN}
 Code={MMP_PLUGNAME}
@@ -13,6 +13,10 @@ Auth_guests={MMP_AUTHG}
 Lock_guests={MMP_LOCKG}
 Auth_members={MMP_AUTHM}
 Lock_members={MMP_LOCKM}
+Recommends_modules=
+Recommends_plugins=
+Requires_modules=
+Requires_plugins=
 {MMP_PLEND}
 
 {MMP_PBEGIN}
@@ -26,9 +30,10 @@ Lock_members={MMP_LOCKM}
  * @author {MMP_AUTHOR_NAME}
  * @copyright {MMP_COPYRIGHT}
  * @license {MMP_LICENSE}
+ * Made with «Extension Template» (https://github.com/macik/cot-extension_template)
 
 <!-- BEGIN: CONF_VAR -->
-
+ *
 Allowed Var types:
 var1=11:select:0,1,2,3,4,5,6:3:Description
 var2=12:radio:0,1:1:Enable this
@@ -39,10 +44,10 @@ var6=16:range:0,5:1:Range
 var7=17:text:0,5:1,2:Text
 var8=18:custom:user_func():def_value:Description
 <!-- END: CONF_VAR -->
-
+ *
  */
 
-if (!defined('{MMP_CODEMARK}')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('{MMP_CODEMARK}') or die('Wrong URL.');
 
 
 ?><!-- END: MAIN -->

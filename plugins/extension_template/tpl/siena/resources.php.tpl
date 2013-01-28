@@ -5,6 +5,7 @@
  * @author {MMP_AUTHOR_NAME}
  * @copyright {MMP_COPYRIGHT}
  * @license {MMP_LICENSE}
+ * Made with «Extension Template» (https://github.com/macik/cot-extension_template)
  */
 defined('COT_CODE') or die('Wrong URL');
 require_once cot_langfile('{MMP_PLUGNAME}', 'plug');

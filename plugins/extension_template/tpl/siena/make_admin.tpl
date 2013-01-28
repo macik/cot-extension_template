@@ -1,4 +1,4 @@
-<!-- BEGIN: MAIN --><?PHP
+<!-- BEGIN: MAIN --><?php
 /* ====================
 {MMP_COPYRIGHT}, {MMP_AUTHOR_NAME}
 All rights reserved. {MMP_LICENSE}
@@ -10,8 +10,9 @@ File={MMP_PLUGFILE}
 Hooks=tools
 Order={MMP_PLUGORDER}
 {MMP_PLEND}
+Made with «Extension Template» (https://github.com/macik/cot-extension_template)
 ==================== */
-if (!defined('{MMP_CODEMARK}')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+(defined('{MMP_CODEMARK}') && defined('{MMP_SEDMARK}ADMIN')) or die('Wrong URL.');
 $plug_name = '{MMP_PLUGNAME}';
 $plugin_body .= 'Admin Part of {MMP_PLUGNAME} Plugin installed (file {MMP_PLUGFILE}).<br/>';
 

@@ -1,4 +1,4 @@
-<!-- BEGIN: MAIN --><?PHP
+<!-- BEGIN: MAIN --><?php
 /* ====================
 {MMP_PLBEGIN}
 Hooks=header.first
@@ -12,9 +12,10 @@ Hooks=header.first
  * @author {MMP_AUTHOR_NAME}
  * @copyright {MMP_COPYRIGHT}
  * @license {MMP_LICENSE}
+ * Made with «Extension Template» (https://github.com/macik/cot-extension_template)
  */
 
-if (!defined('{MMP_CODEMARK}') && !defined('{MMP_SEDMARK}PLUG')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('{MMP_CODEMARK}') or die('Wrong URL.');
 $plug_name = '{MMP_PLUGNAME}';
 
 

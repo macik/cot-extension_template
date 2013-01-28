@@ -8,7 +8,7 @@
  */
 
 defined('COT_CODE') or die('Wrong URL');
-require_once cot_langfile('{MMP_PLUGNAME}', 'plug');
+// require_once cot_langfile('{MMP_PLUGNAME}', 'plug');
 
 //global $db_{MMP_PLUGNAME}, $db_x;
 //$db_contact = (isset($db_contact)) ? $db_contact : $db_x . 'contact';
