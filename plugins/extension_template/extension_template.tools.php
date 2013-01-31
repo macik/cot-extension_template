@@ -20,19 +20,17 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) {
 
 /*
  * TODO: Extended plugin
-*
-*  - add reset setting button and save options through plugin creating screen (to make another one with same settings)
-*  - save settings as profiles
-*  - add cot_import
-*  ? use Forms API to render form fields
-*  - design structure table on creation LOG page
-*  - refactoring
+*  ? add reset setting button and save options through plugin creating screen (to make another one with same settings)
+*  ? save settings as profiles
 *
 * DONE:
+*  + refactoring
+*  + add cot_import
 *  + add custom part creating with using hook name parsed from filename
 *  + add sample plugin icon
 *  + make default CSS and TPL file creation on TPL folder
 *  + added sample markdown files for readme and versions
+*  + design structure table on creation LOG page
 *
 **/
 
