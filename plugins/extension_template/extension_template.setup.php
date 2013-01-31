@@ -4,10 +4,10 @@
 Code=extension_template
 Name=Extension template
 Description=Generates sample (template) files for extension development
-Version=1.0.3
-Date=2013-jan-11
+Version=1.1.0
+Date=2013-jan-31
 Author=Andrey Matsovkin
-Copyright=Copyright (c) 2008-2012, Andrey Matsovkin
+Copyright=Copyright (c) 2008-2013, Andrey Matsovkin
 Notes=If your enjoy my plugin please consider donating to help support future developments. mailto: macik.spb@gmail.com   Thanks!
 Auth_guests=
 Lock_guests=W2345A

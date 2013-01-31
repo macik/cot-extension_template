@@ -1,4 +1,5 @@
-#options {
+#options,
+#tpl_prm {
   margin:15px;
 }
 
@@ -26,4 +27,12 @@ span.mrg {
 
 .typeselect{
 	margin: 20px;
+}
+
+ul.tabslist{
+	list-style: none;
+}
+
+ul.tabslist li{
+	display: inline;
 }

@@ -1,7 +1,17 @@
 <!-- BEGIN: MAIN -->
 <script type="text/javascript">
 $(document).ready( function() {
-        $('.etabs').tabs();
+        //$('.etabs').tabs();
+        $('div[id^=tab]').hide();
+        $('#tab1').show();
+        $('ul.tabslist>li>a').bind('click',function(){
+			var hr = $(this).attr('href');
+			$('div[id^=tab]').hide(500);
+        	$(hr).show(500);
+        	console.log(hr);
+        	return false;
+        });
+
         $('div.panes').show(200);
         $('input[name=plugtyp]').bind('click',function(){
         	ajaxSend({url:'{PHP.ajax_link}'+'&mode='+$(this).val(),method:'POST',data:'x={PHP.sys.xk}',divId:'tpl_prm'});
@@ -38,12 +48,12 @@ $(document).ready( function() {
 </div>
 <div class="etabs">
 <ul class="tabslist">
-	<li><a href="#tab1">{PHP.L.mplug_stage1}</a></li>
-	<li><a href="#tab2">{PHP.L.mplug_stage2}</a></li>
+	<li><a class="button special" href="#tab1">{PHP.L.mplug_stage1}</a></li>
+	<li><a class="button" href="#tab2">{PHP.L.mplug_stage2}</a></li>
 </ul>
 <div class="panes" style="display: none;">
-<div id="tab1">
-    <p><b>{PHP.L.mplug_stage1}</b></p>
+<div class="mtab block" id="tab1">
+    <h3>{PHP.L.mplug_stage1}</h3>
     <div id="options">
     <div id="nameopt"><strong>{PHP.L.mplug_name}</strong><br />
         <input id="pni" name="plf[name]" type="text" value="plug_filename" onkeyup="$('.ttl').text(this.value); $('#id_1').val(this.value);$('#id_3').val(this.value+'_'); $('#id_4').val(this.value);" />
@@ -88,12 +98,18 @@ $(document).ready( function() {
     <input class="add" type="checkbox" name="plf[siena][resources.php]" value="1" />
     &nbsp;inc/<span id="plug_ttl" class="ttl">plug_filename</span>.resources.php<br/>
 </div>
+<div id="SIENA_md"  style="display:block;" class="chk"><strong>{PHP.L.mplug_mdfiles}</strong><br/>
+    <input checked="checked" class="add" type="checkbox" name="plf[misc][readme.md]" value="1" />
+    &nbsp;README.md - {PHP.L.mplug_mddesc}<br/>
+    <input class="add" type="checkbox" name="plf[misc][versions.md]" value="1" />
+    &nbsp;versions.md - {PHP.L.mplug_mdvers}<br/>
+</div>
 
 </div>
 </div>
 
-<div id="tab2">
-<p><b>{PHP.L.mplug_params}:</b></p>
+<div class="mtab block" id="tab2">
+<h3>{PHP.L.mplug_params}:</h3>
 <div id="tpl_prm">
 {PRM}
 </div>
@@ -103,7 +119,7 @@ $(document).ready( function() {
 </div>
 </div>
 
-<p><input type="submit" name="n" value="{PHP.L.mplug_goto2}" /></p>
+<p class="valid"><input class="submit" type="submit" name="n" value="{PHP.L.mplug_goto2}" /></p>
 </form>
 
 <script type="text/javascript">
@@ -115,6 +131,22 @@ $(document).ready( function() {
  }
 </script>
 <!-- END: MAIN -->
+-----------------------------------------------
+<!-- BEGIN: LOG -->
+<div class="block">
+	<h3>{PHP.L.mplug_creating}</h3>
+	<ul class="log">
+<!-- BEGIN: LINE -->
+<li class="line">{logline}</li>
+<!-- END: LINE -->
+	</ul>
+<!-- BEGIN: ERROR -->
+<div class="error">{err_msg}</div>
+<!-- END: ERROR -->
+	<br />
+	<a href="{PHP.scriptname}">{PHP.L.mplug_back}</a>
+</div>
+<!-- END: LOG -->
 -----------------------------------------------
 <!-- BEGIN: PRM -->
 <!-- BEGIN: INPUT_PRM -->

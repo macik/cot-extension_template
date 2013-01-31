@@ -25,8 +25,6 @@ if ($cfg['jquery'] && defined('COT_ADMIN') && $_GET['m']=='other' && $_GET['p']=
 		$rc_link_func = 'cot_rc_add_file';
 	}
 
-    $rc_link_func('./js/jquery_ui/jquery-ui-1.8.23.full.min.js');
-    cot_rc_add_file('./js/jquery_ui/css/redmond/jquery-ui-1.8.23.full.css');
     cot_rc_add_file($cfg['plugins_dir'] . '/extension_template/tpl/extension_template.css');
 }
 
