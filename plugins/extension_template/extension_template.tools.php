@@ -20,6 +20,7 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) {
 
 /*
  * TODO: Extended plugin
+ * - do not clear setting after plugin created
 *  ? add reset setting button and save options through plugin creating screen (to make another one with same settings)
 *  ? save settings as profiles
 *
@@ -47,7 +48,7 @@ $inc_path  = "$base_path/inc";
 $tpl_path  = "$base_path/tpl";
 $ajax_link = "plug.php?r=$plug_name";
 $et_cfg = $cfg['plugin'][$plug_name];
-
+//XTemplate::init(false); // debug only
 require_once cot_incfile($plug_name, 'plug');
 
 switch ($a) {
@@ -153,21 +154,24 @@ switch ($a) {
 					}
 				}
 			}
-			foreach ($plf['misc'] as $k=>$v) {
-				if ($v) {
-					if ($k == 'readme.md') {
-						foreach ($langs as $lng) { // for languages
-							$lng = strtolower($lng);
-							if (preg_match("/[A-Z]{2}/i", $lng)) {
-								$k = 'README'.($lng!='en'?'_'.$lng:'').'.md';
-								$ex_tpl = getTemplate('misc', $k, '');
-								if ($ex_tpl) toLog(cot_rc('mplug_log',array(makeFile($base_folder.$k),$k)));
+			$md_folder = $et_cfg['md_outside'] ? $base_folder : $main_folder;
+			if (is_array($plf['misc'])) {
+				foreach ($plf['misc'] as $k=>$v) {
+					if ($v) {
+						if ($k == 'readme.md') {
+							foreach ($langs as $lng) { // for languages
+								$lng = strtolower($lng);
+								if (preg_match("/[A-Z]{2}/i", $lng)) {
+									$k = 'README'.($lng!='en'?'_'.$lng:'').'.md';
+									$ex_tpl = getTemplate('misc', $k, '');
+									if ($ex_tpl) toLog(cot_rc('mplug_log',array(makeFile($md_folder.$k),$k)));
+								}
 							}
+							continue;
 						}
-						continue;
+						$ex_tpl = getTemplate('misc', $k, '');
+						if ($ex_tpl) toLog(cot_rc('mplug_log',array(makeFile($md_folder.$k),$k)));
 					}
-					$ex_tpl = getTemplate('misc', $k, '');
-					if ($ex_tpl) toLog(cot_rc('mplug_log',array(makeFile($base_folder.$k),$k)));
 				}
 			}
 		} else {
@@ -179,6 +183,8 @@ switch ($a) {
 
 	default: // generate form with extension params
 		$count =0;
+		$ext_cat_selector = cot_selectbox('', 'plf[ext_cat]', array_keys($L['ext_cat']),array_map(html_entity_decode,array_values($L['ext_cat'])),true);
+
 		foreach ($tpl_modes as $k => $v) { // Mode (version) selection
 			$count++;
 			$in['id']=$count;

@@ -3,6 +3,7 @@
 {MMP_PLBEGIN}
 Code={MMP_PLUGNAME}
 Name={MMP_PLUGTITLE}
+Category={PHP.plf.ext_cat}
 Description={MMP_PLUGDESC}
 Version={MMP_VERSION}
 Date={MMP_PLUGDATE}

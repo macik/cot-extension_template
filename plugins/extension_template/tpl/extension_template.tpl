@@ -58,6 +58,7 @@ $(document).ready( function() {
     <div id="nameopt"><strong>{PHP.L.mplug_name}</strong><br />
         <input id="pni" name="plf[name]" type="text" value="plug_filename" onkeyup="$('.ttl').text(this.value); $('#id_1').val(this.value);$('#id_3').val(this.value+'_'); $('#id_4').val(this.value);" />
 {PHP.L.mplug_name2}<br /><br />
+{PHP.L.mplug_category}: {PHP.ext_cat_selector}
 </div>
 <div id="mainopt">
     <div class="chk"><input id="makedirs" checked="checked" type="checkbox" name="plf[makedirs]" value="1" onchange="if ($('#makedirs').attr('checked')) {$('#spdirs').show(100);} else {$('#spdirs').hide(100);}" />

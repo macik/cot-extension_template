@@ -8,6 +8,13 @@ Changelog
 ---------
 
 
+### v1.1.1 (2013-Feb-15)  
+
++ Option to select plugin category
++ Option to select placement of MD files
+* Some small fixes
+
+
 ### v1.1.0 (2013-Jan-31)
 
 * Refactoring

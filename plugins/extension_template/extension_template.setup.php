@@ -4,8 +4,8 @@
 Code=extension_template
 Name=Extension template
 Description=Generates sample (template) files for extension development
-Version=1.1.0
-Date=2013-jan-31
+Version=1.1.1
+Date=2013-feb-15
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2013, Andrey Matsovkin
 Notes=If your enjoy my plugin please consider donating to help support future developments. mailto: macik.spb@gmail.com   Thanks!
@@ -22,6 +22,7 @@ author=02:string::Your Name:Author name
 email=03:string::your_email@example.com:Your E-mail
 licence=04:select:MIT,GPL,BSD,CC-BY-SA:BSD:Licence type
 outputdir=05:string::datas\created\:Folder for output files
+md_outside=06:radio:0,1:0:Place *.md files outside plugin folder
 [END_COT_EXT_CONFIG]
 ==================== */
 
