@@ -3,6 +3,7 @@
 [BEGIN_COT_EXT]
 Code=extension_template
 Name=Extension template
+Category=development-maintenance
 Description=Generates sample (template) files for extension development
 Version=1.1.1
 Date=2013-feb-15
