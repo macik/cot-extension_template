@@ -33,4 +33,4 @@ $base_path = $cfg['plugins_dir']."/$plug_name";
 $plugin_body .= 'Plugin installed (file {MMP_PLUGFILE}).<br/>';
 
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

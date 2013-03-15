@@ -34,4 +34,4 @@ if ($cfg['jquery'] && $cfg['turnajax']){
 
 }
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

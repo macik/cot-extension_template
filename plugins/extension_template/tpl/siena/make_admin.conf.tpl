@@ -37,4 +37,4 @@ if ($config_cat==$plug_name && $config_type == 0) { // extending COT_CONFIG_TYPE
 */
 }
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

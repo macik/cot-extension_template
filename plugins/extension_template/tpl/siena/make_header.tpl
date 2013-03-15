@@ -21,4 +21,4 @@ $plug_name = '{MMP_PLUGNAME}';
 
 
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

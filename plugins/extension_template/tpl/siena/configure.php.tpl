@@ -1,4 +1,4 @@
 <!-- BEGIN: MAIN --><?php
 
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

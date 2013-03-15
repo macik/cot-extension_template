@@ -10,7 +10,7 @@ Hooks=tools
  *
  * @package extension_template
  * @author Andrey Matsovkin
- * @copyright Copyright (c) 2008-2012
+ * @copyright Copyright (c) 2008-2013
  * @license Distributed under BSD License.
  */
 
@@ -210,4 +210,3 @@ switch ($a) {
 		break;
 }
 
-?>

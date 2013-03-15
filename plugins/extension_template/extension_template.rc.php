@@ -10,7 +10,7 @@ Hooks=rc
  *
  * @package extension_template
  * @author Andrey Matsovkin
- * @copyright Copyright (c) 2008-2012
+ * @copyright Copyright (c) 2008-2013
  * @license Distributed under BSD License.
  */
 
@@ -29,4 +29,3 @@ if ($cfg['jquery'] && defined('COT_ADMIN') && $_GET['m']=='other' && $_GET['p']=
 }
 
 
-?>

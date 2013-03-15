@@ -30,4 +30,4 @@ if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' || (strtolower($_SERV
 } else {
     echo 'Test result. NaAQ (not an ajax query)';
 }
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

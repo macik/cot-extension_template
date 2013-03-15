@@ -14,4 +14,4 @@ defined('COT_CODE') or die('Wrong URL');
 //$db_contact = (isset($db_contact)) ? $db_contact : $db_x . 'contact';
 
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

@@ -2,7 +2,7 @@
 /**
  * Localization file for Extension template
  * @author Andrey Matsovkin
- * @copyright Copyright (c) 2008-2012
+ * @copyright Copyright (c) 2008-2013
  * @license Distributed under BSD License.
  */
 
@@ -50,4 +50,3 @@ $L['cfg_licence'] =array('Тип лицензии','может быть изме
 $L['cfg_md_outside'] =array('Создавать *.md файлы вне каталога плагина','если опция выбрана файлы будут созданы рядом с папкой плагина, в каталоге `created`');
 
 
-?>

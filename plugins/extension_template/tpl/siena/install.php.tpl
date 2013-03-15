@@ -57,4 +57,4 @@ foreach ($com_modules_struct_list as $mod_name){
   }
 }
 */
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

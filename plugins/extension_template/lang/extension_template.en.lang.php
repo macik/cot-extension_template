@@ -2,7 +2,7 @@
 /**
  * Localization file for Extension template
  * @author Andrey Matsovkin
- * @copyright Copyright (c) 2008-2012
+ * @copyright Copyright (c) 2008-2013
  * @license Distributed under BSD License.
  */
 
@@ -50,4 +50,3 @@ $L['cfg_licence'] =array('Licence type','you can change it in parameters while c
 $L['cfg_md_outside'] =array('Place *.md files outside plugin folder','if selected it will be places in `created` folder');
 
 
-?>

@@ -13,4 +13,4 @@ defined('{MMP_CODEMARK}') or die('Wrong URL.');
 $plug_name = '{MMP_PLUGNAME}';
 // plugin '{MMP_PLUGPART}' part dump file
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

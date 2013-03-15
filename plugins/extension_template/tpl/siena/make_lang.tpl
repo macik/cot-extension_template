@@ -21,4 +21,4 @@ $L['cfg_VAR_params'] = array(1,2,3);
 
 $adminhelp1 = '';
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

@@ -29,4 +29,4 @@ $plugin_body .= 'Admin part of {MMP_PLUGFILE}.<br/>';
 
 // addition code goes here....
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

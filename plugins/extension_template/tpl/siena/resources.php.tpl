@@ -12,4 +12,4 @@ require_once cot_langfile('{MMP_PLUGNAME}', 'plug');
 
 //R['comments_code_admin'] = $L['Ip'].': {$ipsearch}<span class="spaced">'.$cfg['separator'].'</span><a href="{$delete_url}">'.$L['Delete'].'</a><span class="spaced">'.$cfg['separator'].'</span>';
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

@@ -17,4 +17,4 @@ $plug_name = '{MMP_PLUGNAME}';
 $plugin_body .= 'Admin Part of {MMP_PLUGNAME} Plugin installed (file {MMP_PLUGFILE}).<br/>';
 
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

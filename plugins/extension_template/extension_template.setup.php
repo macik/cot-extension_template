@@ -5,8 +5,8 @@ Code=extension_template
 Name=Extension template
 Category=development-maintenance
 Description=Generates sample (template) files for extension development
-Version=1.1.1
-Date=2013-feb-15
+Version=1.1.2
+Date=2013-Mar-15
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2013, Andrey Matsovkin
 Notes=If your enjoy my plugin please consider donating to help support future developments. mailto: macik.spb@gmail.com   Thanks!
@@ -31,13 +31,11 @@ md_outside=06:radio:0,1:0:Place *.md files outside plugin folder
  * Extension template plugin for Cotonti CMF
  *
  * @package extension_template
- * @version 1.0.3
  * @author Andrey Matsovkin
- * @copyright Copyright (c) 2008-2012
+ * @copyright Copyright (c) 2008-2013
  * @license Distributed under BSD License.
 */
 
 if (!defined('COT_CODE')) { die('Wrong URL ('.array_pop(explode("\\",__FILE__)).').'); }
 
 
-?>

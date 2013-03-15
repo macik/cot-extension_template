@@ -3,7 +3,7 @@
  * Extension template plugin API
  * @package extension_template
  * @author Andrey Matsovkin
- * @copyright Copyright (c) 2008-2012
+ * @copyright Copyright (c) 2008-2013
  * @license Distributed under BSD License.
  */
 
@@ -117,4 +117,3 @@ $bold_tag = array('MMP_PLUGNAME','MMP_PLUGDATE','MMP_VARPREFIX','MMP_PLUGFILE','
 
 $mode= strtolower($mode);
 
-?>

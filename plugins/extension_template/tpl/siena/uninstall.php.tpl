@@ -25,4 +25,4 @@ else
 //global $db, $db_config;
 //$db->delete($db_config, "config_donor = '{MMP_PLUGNAME}'");
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->

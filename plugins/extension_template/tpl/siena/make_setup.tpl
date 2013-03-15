@@ -51,4 +51,4 @@ var8=18:custom:user_func():def_value:Description
 defined('{MMP_CODEMARK}') or die('Wrong URL.');
 
 
-?><!-- END: MAIN -->
+<!-- END: MAIN -->
