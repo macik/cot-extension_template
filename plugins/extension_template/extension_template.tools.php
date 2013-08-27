@@ -183,7 +183,8 @@ switch ($a) {
 
 	default: // generate form with extension params
 		$count =0;
-		$ext_cat_selector = cot_selectbox('', 'plf[ext_cat]', array_keys($L['ext_cat']),array_map(html_entity_decode,array_values($L['ext_cat'])),true);
+		$ext_cat = getExtensionCategories();
+		$ext_cat_selector = cot_selectbox('', 'plf[ext_cat]', array_keys($ext_cat),array_map(html_entity_decode,array_values($ext_cat)),true);
 
 		foreach ($tpl_modes as $k => $v) { // Mode (version) selection
 			$count++;
