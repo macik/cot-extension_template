@@ -12,6 +12,23 @@ require_once cot_langfile('extension_template', 'plug');
 $plug_name = 'extension_template';
 
 /**
+ * Returns Extension Categories. Support new naming convention
+ * used since Cotonti v0.9.13
+ */
+function getExtensionCategories(){
+	global $L;
+	if (isset($L['ext_cat']) && is_array($L['ext_cat'])) {
+		return $L['ext_cat'];
+	} else {
+		$ext_cat = array();
+		foreach ($L as $k => $v) {
+			if (substr($k,0,8)=='ext_cat_') $ext_cat[substr($k,8)] = $v;
+		}
+		return $ext_cat;
+	}
+
+}
+/**
  * Parses text for key => value pairs and makes Array
  * @param str $text - text to pare
  * @param str $delimiter - key-value delimiter
@@ -28,7 +45,7 @@ function parseParams($text,$delimiter='>>',$linebreak=PHP_EOL){
 }
 
 /**
- * Check for propper template file depends on Name and Mode and return
+ * Check for proper template file depends on Name and Mode and return
  * initialized XTemplate
  * @param string $mode - Mode for templates
  * @param string $name - Name of template

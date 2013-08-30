@@ -12,7 +12,7 @@ Tags={MMP_TAGS}
 Order={MMP_PLUGORDER}
 {MMP_PEND}
 ==================== */
-if (!defined('{MMP_CODEMARK}')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('{MMP_CODEMARK}') or die('Wrong URL.');
 $plug_name = '{MMP_PLUGNAME}';
 // plugin '{MMP_PLUGPART}' part dump file
 

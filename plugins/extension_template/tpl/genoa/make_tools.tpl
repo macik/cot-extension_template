@@ -17,7 +17,7 @@ Order={MMP_PLUGORDER}
  * @package Cotonti
  */
 
-if (defined('{MMP_SEDMARK}_CODE') && defined('{MMP_SEDMARK}_ADMIN')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('{MMP_CODEMARK}') or die('Wrong URL.');
 
 $plug_name = '{MMP_PLUGNAME}';
 $base_path = $cfg['plugins_dir']."/$plug_name";

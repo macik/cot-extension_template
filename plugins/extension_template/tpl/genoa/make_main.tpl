@@ -12,7 +12,7 @@ Tags=example.tpl:{EXAMPLE_TAG}
 Order={MMP_PLUGORDER}
 {MMP_PEND}
 ==================== */
-if (!defined('{MMP_CODEMARK}')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('{MMP_CODEMARK}') or die('Wrong URL.');
 $plug_name = '{MMP_PLUGNAME}';
 $base_path = $cfg['plugins_dir']."/$plug_name";
 //$inc_path  = "$base_path/inc";

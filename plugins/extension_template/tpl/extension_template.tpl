@@ -1,64 +1,185 @@
 <!-- BEGIN: MAIN -->
+<!-- BEGIN: NOJQUERY -->
+<div id="module_settings" class="accordion in collapse" style="height: auto;">
+	<div class="accordion-group block">
+		<div class="accordion-heading">
+			<h3 class="<!-- IF {PHP.et_thememode} == 1 -->nomargins<!-- ELSE --><!-- ENDIF -->">
+				{PHP.L.plu_title}
+			</h3>
+		</div>
+		<div class="accordion-body collapse in" id="main_settings">
+			<div class="accordion-inner margin_theme{PHP.et_thememode}">{PHP.L.mplug_nojquery}</div>
+			<!-- /.accordion-inner -->
+		</div>
+		<!-- /.section1 -->
+	</div>
+	<!-- /.accordion-group -->
+</div>
+<!-- END: NOJQUERY -->
+<!-- BEGIN: JQUERY -->
+
 <script type="text/javascript">
 $(document).ready( function() {
-        //$('.etabs').tabs();
-        $('div[id^=tab]').hide();
-        $('#tab1').show();
-        $('ul.tabslist>li>a').bind('click',function(){
-			var hr = $(this).attr('href');
-			$('div[id^=tab]').hide(500);
-        	$(hr).show(500);
-        	console.log(hr);
-        	return false;
-        });
 
-        $('div.panes').show(200);
-        $('input[name=plugtyp]').bind('click',function(){
-        	ajaxSend({url:'{PHP.ajax_link}'+'&mode='+$(this).val(),method:'POST',data:'x={PHP.sys.xk}',divId:'tpl_prm'});
-        });
+	/* 	Bootstrap style accordion animation code */
+	$('.accordion .accordion-inner').hide();
+	$('.accordion .accordion-heading a.accordion-toggle').addClass('collapsed');
+	$('.accordion .accordion-body.in .accordion-inner').show()
+		.parents('.accordion-group').find('.accordion-heading a.accordion-toggle').removeClass('collapsed');
 
-        $('input[name=plugtyp]').bind('change',function(){
-        	var options = {};
-        	$( "div.panes" ).hide( 'fade', options, 300, function(){
-                if ($('#rt_2').attr('checked')) {
-                	$('#pdirs').val('inc,img,lib,js,tpl');
-                } else {
-                	$('#pdirs').val('inc,img,js,tpl');
-                }
-                $('input[name=plugtyp]').each(function(){
-                	//console.log($(this).attr('checked'));
-                    if ($(this).attr('checked')) {
-                        $('div[id^='+$(this).val()+']').show();
-                    } else {
-                        $('div[id^='+$(this).val()+']').hide();
-                    }
-                });
-        	});
+	$('.accordion .accordion-heading a.accordion-toggle').click(function(e) {
+		e.stopPropagation();
 
-            $( "div.panes" ).show( 'fade', options, 300 );
-       });
+		var $this = $(this),
+			id = $this.attr('href'),
+			dataToggle = $this.data('toggle'),
+			dataParent = $this.data('parent');
+
+		if (dataParent && $(dataParent).size()) {
+			$parent = $(dataParent);
+		} else {
+			$parent = $this.parents('.accordion');
+		}
+		$current = $parent.find(id);
+		collapsible_class = dataToggle ? dataToggle : 'collapse';
+
+		if ($current.hasClass('in')) {
+			$current.find('.accordion-inner').slideUp(250);
+			$current.removeClass('in');
+			$this.addClass('collapsed');
+		} else {
+			$parent.find('.'+collapsible_class).removeClass('in').find('.accordion-inner').slideUp(250);
+			$parent.find('.accordion-heading a.accordion-toggle').addClass('collapsed');
+			$current.addClass('in').find('.accordion-inner').slideDown(250).parents('.accordion').find('.accordion-heading a.accordion-toggle').removeClass('collapsed');
+		}
+		return false;
+	});
+	/* end of Bootstrap style accordion animation code */
+
+	$('.pid_1,.pid_3,.pid_4').hide();
+
+	// track extension filename change
+	$('#pni').keyup(function(){
+		var val = this.value.replace(/[^a-z0-9_]/ig,'');
+		this.value = val;
+		$('.ttl').text(val);
+		$('#id_1,#id_4').val(val);
+		$('#id_3').val(val+'_');
+	});
+
+
+	$('div.panes').show(200);
+
+	// adds addition input field with remove link
+	$('a.add_file_input').click(function(e) {
+		e.stopPropagation();
+		var new_idx = $('div[id^="dyn"]').length + 1;
+		var pni = $('#pni').val();
+		$('#cf').append(
+			'<div id="dyn'+new_idx+'"><label class="inline" for="addon_'+new_idx+'"><input id="addon_'+new_idx+'" class="add" type="checkbox" name="plug['+new_idx+'][used]" value="1" />&nbsp;&nbsp;<span class="ttl">'
+			+ pni
+			+ '</span></label>.<input name="plug['+new_idx+'][name]" type="text" value="header" /><a class="del_file_input" id="dellink_'+new_idx+'" href="#"'
+			 +'>({PHP.L.Delete})</a></div>');
+		$('#dellink_'+new_idx).click(function(e) {
+			e.stopPropagation();
+			$('#dyn'+new_idx).remove();
+			return false;
+		});
+		return false;
+	});
+
+	$('input[name=plugtyp]').change(function() {
+		var options = {},
+			$input = $(this);
+		$("div.panes").slideUp(500, function() {
+ 			ajaxSend({
+				url : '{PHP.ajax_link}' + '&mode=' + $input.val(),
+				method : 'POST',
+				data : 'x={PHP.sys.xk}',
+				divId : 'tpl_prm'
+			});
+				if ($('#rt_2').attr('checked')) {
+				$('#pdirs').val('inc,img,lib,js,tpl');
+			} else {
+				$('#pdirs').val('inc,img,js,tpl');
+			}
+			$('input[name=plugtyp]').each(function() {
+				var $this = $(this);
+				$target_div = $('div[id^=' + $this.val() + ']');
+				if ($this.attr('checked')) {
+					$target_div.show();
+				} else {
+					$target_div.hide();
+				}
+			});
+		});
+			$("div.panes").slideDown(500);
+	});
 });
 </script>
-<form id="frm1" name="frm1" action="{PHP|cot_url('admin','m=other&p=extension_template&a=step2')}" method="post" style="margin-top:35px;">
+
+<form id="frm1" class="ajax post-make_results" name="frm1" action="{PHP|cot_url('admin','m=other&p=extension_template&a=step2')}" method="post" style="margin-top:35px;">
+<div id="make_results"></div>
 <div class="typeselect">
-<p><b>{PHP.L.mplug_select}:</b></p>
-<!-- BEGIN: INPUT_TYP -->
-<input id="rt_{in.id}" type="radio" name="plugtyp" value="{in.typ}"{in.check}><label for="rt_{in.id}"> {in.desc}</label><br/>
-<!-- END: INPUT_TYP -->
+	<p><b>{PHP.L.mplug_select}:</b></p>
+	<!-- BEGIN: INPUT_TYP -->
+	<input id="rt_{in.id}" type="radio" name="plugtyp" value="{in.typ}"{in.check}><label class="inline" for="rt_{in.id}"> {in.desc}</label><br/>
+	<!-- END: INPUT_TYP -->
 </div>
+
 <div class="etabs">
-<ul class="tabslist">
-	<li><a class="button special" href="#tab1">{PHP.L.mplug_stage1}</a></li>
-	<li><a class="button" href="#tab2">{PHP.L.mplug_stage2}</a></li>
-</ul>
-<div class="panes" style="display: none;">
-<div class="mtab block" id="tab1">
-    <h3>{PHP.L.mplug_stage1}</h3>
-    <div id="options">
+	<div class="panes" style="display: none;">
+		<div id="module_settings" class="accordion" style="height: auto;">
+			<div class="accordion-group block">
+				<div class="accordion-heading">
+					<h3 class="<!-- IF {PHP.et_thememode} == 1 -->nomargins<!-- ELSE --><!-- ENDIF -->">
+						<a href="#main_settings" data-parent="#module_settings" data-toggle="collapse" class="accordion-toggle">{PHP.L.mplug_stage1}</a>
+					</h3>
+				</div>
+				<div class="accordion-body collapse in" id="main_settings">
+					<div class="accordion-inner">
+						{MAIN_CFG}
+					</div>
+					<!-- /.accordion-inner -->
+				</div>
+				<!-- /.section1 -->
+			</div>
+			<!-- /.accordion-group -->
+			<div class="accordion-group block">
+				<div class="accordion-heading">
+					<h3 class="<!-- IF {PHP.et_thememode} == 1 -->nomargins<!-- ELSE --><!-- ENDIF -->">
+						<a href="#misc_param" data-parent="#module_settings" data-toggle="collapse" class="accordion-toggle">{PHP.L.mplug_stage2}</a>
+					</h3>
+				</div>
+				<div class="accordion-body collapse" id="misc_param">
+					<div class="accordion-inner margin_theme{PHP.et_thememode}">
+						<h4>{PHP.L.mplug_params}:</h4>
+						<div id="tpl_prm">
+							{PRM}
+						</div>
+					</div>
+					<!-- /.accordion-inner -->
+				</div>
+				<!-- /.section2 -->
+			</div>
+			<!-- /.accordion-group -->
+		</div>
+	</div>
+</div>
+
+<p class="valid"><input class="submit<!-- IF {PHP.et_thememode} == 2 --> inner-margins<!-- ELSE --><!-- ENDIF -->" type="submit" name="n" value="{PHP.L.mplug_goto2}" /></p>
+
+</form>
+
+<!-- END: JQUERY -->
+<!-- END: MAIN -->
+
+<!-- BEGIN: MAIN_CFG -->
+<div id="options">
     <div id="nameopt"><strong>{PHP.L.mplug_name}</strong><br />
-        <input id="pni" name="plf[name]" type="text" value="plug_filename" onkeyup="$('.ttl').text(this.value); $('#id_1').val(this.value);$('#id_3').val(this.value+'_'); $('#id_4').val(this.value);" />
+        <input id="pni" name="plf[name]" type="text" value="plug_filename" onkeyup="" />
 {PHP.L.mplug_name2}<br /><br />
-{PHP.L.mplug_category}: {PHP.ext_cat_selector}
+<div id="SIENA_cat">{PHP.L.mplug_category}: {PHP.ext_cat_selector}</div>
 </div>
 <div id="mainopt">
     <div class="chk"><input id="makedirs" checked="checked" type="checkbox" name="plf[makedirs]" value="1" onchange="if ($('#makedirs').attr('checked')) {$('#spdirs').show(100);} else {$('#spdirs').hide(100);}" />
@@ -88,8 +209,8 @@ $(document).ready( function() {
     </div>
 </div>
 <div id="addon"><strong>{PHP.L.mplug_addon}</strong> (ajax, header, tools, rc, ...):
-    &nbsp;<a href="#" onClick="addF(); return false;">({PHP.L.Add})</a><br />
-    <label for="addon_0"><input id="addon_0" class="add" type="checkbox" name="plug[0][used]" value="1" />
+    &nbsp;<a class="add_file_input" href="#" >({PHP.L.Add})</a><br />
+    <label class="inline" for="addon_0"><input id="addon_0" class="add" type="checkbox" name="plug[0][used]" value="1" />
     &nbsp;<span id="plug_ttl" class="ttl">plug_filename</span></label>.<input name="plug[0][name]" type="text" value="header" />
 <div id="cf"></div>
 </div>
@@ -107,52 +228,41 @@ $(document).ready( function() {
 </div>
 
 </div>
-</div>
 
-<div class="mtab block" id="tab2">
-<h3>{PHP.L.mplug_params}:</h3>
-<div id="tpl_prm">
-{PRM}
-</div>
-<div></div>
-<br />
-</div>
-</div>
-</div>
-
-<p class="valid"><input class="submit" type="submit" name="n" value="{PHP.L.mplug_goto2}" /></p>
-</form>
-
-<script type="text/javascript">
- function addF(){
-   var i=$('div[id^="dyn"]').length+1;
-   var w="'";
-   var pni = $('#pni').val();
-   $('#cf').append('<div id="dyn'+i+'"><label for="addon_'+i+'"><input id="addon_'+i+'" class="add" type="checkbox" name="plug['+i+'][used]" value="1" />&nbsp;&nbsp;<span class="ttl">'+pni+'</span></label>.<input name="plug['+i+'][name]" type="text" value="header" /><a href="#" onClick="$('+w+'#dyn'+i+w+').remove(); return false;">({PHP.L.Delete})</a></div>');
- }
-</script>
-<!-- END: MAIN -->
+<!-- END: MAIN_CFG -->
 -----------------------------------------------
 <!-- BEGIN: LOG -->
-<div class="block">
-	<h3>{PHP.L.mplug_creating}</h3>
-	<ul class="log">
+<div id="results_block" class="<!-- IF {PHP.et_thememode} == 1 -->inner-margins<!-- ELSE --><!-- ENDIF -->" style="height: auto;">
+		<div class="block">
+			<h3 class="<!-- IF {PHP.et_thememode} == 1 -->nomargins<!-- ELSE --><!-- ENDIF -->">
+				{PHP.L.mplug_creating}
+			</h3>
+					<div class="<!-- IF {PHP.et_thememode} == 2 -->inner-margins<!-- ELSE --><!-- ENDIF -->">
+					<ul class="log">
 <!-- BEGIN: LINE -->
-<li class="line">{logline}</li>
+						<li class="line">{logline}</li>
 <!-- END: LINE -->
-	</ul>
+					</ul>
 <!-- BEGIN: ERROR -->
-<div class="error">{err_msg}</div>
+					<div class="error">{err_msg}</div>
 <!-- END: ERROR -->
-	<br />
-	<a href="{PHP.scriptname}">{PHP.L.mplug_back}</a>
+					<br />
+					<!-- IF {PHP.cfg.turnajax} -->
+					<a href="#" onClick="$('#results_block').remove(); return false;">{PHP.L.Close}</a>
+					<!-- ELSE -->
+					<a href="{PHP.scriptname}">{PHP.L.mplug_back}</a>
+					<!-- ENDIF -->
+					</div>
+		</div>
 </div>
 <!-- END: LOG -->
 -----------------------------------------------
 <!-- BEGIN: PRM -->
 <!-- BEGIN: INPUT_PRM -->
+<div class="pid_{in.num}">
 <input id="id_{in.num}" name="prm_{in.num}" type="text" size="40" value="{in.val}">
-<label for="id_{in.num}">&nbsp;{in.text}</label><br />
+<label class="inline" for="id_{in.num}">&nbsp;{in.text}</label>
+</div>
 <!-- END: INPUT_PRM -->
 <!-- END: PRM -->
 -----------------------------------------------
@@ -224,6 +334,8 @@ MMP_VAR.NAME >>test
 MMP_VAR.VALUE >> TEST
 MMP_PBEGIN >> [BEGIN_COT_EXT_CONFIG]
 MMP_PEND >> [END_COT_EXT_CONFIG]
+MMP_PBEGIN_STRUCT >> [BEGIN_COT_EXT_CONFIG_STRUCTURE]
+MMP_PEND_STRUCT >> [END_COT_EXT_CONFIG_STRUCTURE]
 MMP_PLUGORDER >> 10
 MMP_SEDMARK >> COT_
 MMP_CODEMARK >> COT_CODE
@@ -236,3 +348,7 @@ MMP_LOCKM >> 2345
 <!-- END: TPL_MARKS_SIENA -->
 <!-- BEGIN: ERROR -->
 <!-- END: ERROR -->
+
+<!-- BEGIN: RESULTS -->
+
+<!-- END: MAIN -->

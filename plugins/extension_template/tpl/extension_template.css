@@ -36,3 +36,24 @@ ul.tabslist{
 ul.tabslist li{
 	display: inline;
 }
+.nomargins{
+	margin:0;
+}
+.inner-margins{
+	margin: 20px !important;
+}
+
+.accordion-group.block{
+	margin:0 15px;
+}
+.accordion-heading .accordion-toggle {
+	display: block;
+	cursor: pointer;
+}
+
+.margin_theme2{
+	margin:15px;
+}
+.inline{
+	display: inline;
+}

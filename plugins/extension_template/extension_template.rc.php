@@ -25,7 +25,7 @@ if ($cfg['jquery'] && defined('COT_ADMIN') && $_GET['m']=='other' && $_GET['p']=
 		$rc_link_func = 'cot_rc_add_file';
 	}
 
-    cot_rc_add_file($cfg['plugins_dir'] . '/extension_template/tpl/extension_template.css');
 }
 
+cot_rc_add_file($cfg['plugins_dir'] . '/extension_template/tpl/extension_template.css');
 

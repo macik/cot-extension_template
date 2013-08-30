@@ -30,7 +30,7 @@ var6=16:range:0,5:1:Range
 <!-- END: CONF_VAR -->
 {MMP_CEND}
 ==================== */
-if (!defined('{MMP_CODEMARK}')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('{MMP_CODEMARK}') or die('Wrong URL.');
 
 
 ?><!-- END: MAIN -->

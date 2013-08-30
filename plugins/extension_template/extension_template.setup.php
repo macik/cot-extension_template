@@ -5,8 +5,8 @@ Code=extension_template
 Name=Extension template
 Category=development-maintenance
 Description=Generates sample (template) files for extension development
-Version=1.1.2
-Date=2013-Mar-15
+Version=1.2.0
+Date=2013-Aug-28
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2013, Andrey Matsovkin
 Notes=If your enjoy my plugin please consider donating to help support future developments. mailto: macik.spb@gmail.com   Thanks!
@@ -15,7 +15,6 @@ Lock_guests=W2345A
 Auth_members=
 Lock_members=12345
 [END_COT_EXT]
-
 
 [BEGIN_COT_EXT_CONFIG]
 version=01:string::1.0.0:Initial version of plugin

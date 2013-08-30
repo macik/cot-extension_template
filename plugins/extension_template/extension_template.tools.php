@@ -20,11 +20,16 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) {
 
 /*
  * TODO: Extended plugin
- * - do not clear setting after plugin created
-*  ? add reset setting button and save options through plugin creating screen (to make another one with same settings)
 *  ? save settings as profiles
+*  + add controls to set setup file variables
+*  + add support to make modules
 *
 * DONE:
+ * + do not clear setting after plugin created
+ * + fix Siena/Genao mode switching
+*  + added LOG view without settings reset
+*  + add support for Bootstrap themes accordion support (Foster theme and Bootstrap theme)
+*  + add support for Priori support
 *  + refactoring
 *  + add cot_import
 *  + add custom part creating with using hook name parsed from filename
@@ -38,6 +43,16 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) {
 $plug_name = 'extension_template';
 $base_path = $cfg['plugins_dir']."/$plug_name";
 
+switch ($cfg['admintheme']) {
+	case 'foster':
+	case 'bootstrap':
+		$et_thememode = 1;
+		break;
+	case 'priori':
+		$et_thememode = 2;
+		break;
+}
+
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', $plug_name);
 cot_block($usr['isadmin']);
 
@@ -46,7 +61,7 @@ $scriptname = cot_url('admin','m=other&p=extension_template');
 $base_path = $cfg['plugins_dir']."/$plug_name";
 $inc_path  = "$base_path/inc";
 $tpl_path  = "$base_path/tpl";
-$ajax_link = "plug.php?r=$plug_name";
+$ajax_link = (function_exists('cot_url')) ? cot_url('index',"r=$plug_name") : "plug.php?r=$plug_name";
 $et_cfg = $cfg['plugin'][$plug_name];
 //XTemplate::init(false); // debug only
 require_once cot_incfile($plug_name, 'plug');
@@ -62,6 +77,7 @@ switch ($a) {
 			}
 		}
 		$plf = cot_import('plf','P','ARR');//$_POST['plf'];
+		$tpl_arr['MMP_PLUGNAME'] = preg_replace('/[^a-z_]+/i', '', $tpl_arr['MMP_PLUGNAME']);
 		$base_folder = $et_cfg['outputdir'] ? $et_cfg['outputdir'] : $cfg['plugins_dir']."/$plug_name/created/";
 		$base_folder = str_replace('\\','/',$base_folder);
 		$base_folder .= $base_folder[strlen($base_folder)-1]=='/' ? '' : '/';
@@ -69,7 +85,7 @@ switch ($a) {
 
 		if (checkDir($main_folder)) { // makes Extension base folder
 			copy($cfg['plugins_dir']."/$plug_name/img/icon.png","$main_folder{$tpl_arr['MMP_PLUGNAME']}.png");
-			if ($plf['makedirs']) { // if subfolders needed
+			if ($mode=='siena' && $plf['makedirs']) { // if subfolders needed
 				$dirs = explode(',',$plf['dirsname']);
 				if ($mode=='cot') {
 					array_push($dirs,'setup');
@@ -77,12 +93,22 @@ switch ($a) {
 				$dirs = array_unique($dirs);
 				foreach ($dirs as $dirname) {
 					if (checkDir($main_folder.$dirname)) {
+						$source_folder = $cfg['plugins_dir']."/$plug_name/tpl/$mode/$dirname/";
 						if ($dirname == 'tpl') {
-							copy($cfg['plugins_dir']."/$plug_name/tpl/$mode/tpl/make.css","$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.css");
-							$tpl_file = file_get_contents($cfg['plugins_dir']."/$plug_name/tpl/$mode/tpl/make.tpl");
-							$tpl_file = "# main TPL file for {$tpl_arr['MMP_PLUGTITLE']} plugin\n".$tpl_file;
-							file_put_contents("$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.tpl", $tpl_file);
+							$source = $source_folder.'make.css';
+							$target = "$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.css";
+							if (file_exists($source)) {
+								copy($source,$target);
+								$tpl_file = file_get_contents($cfg['plugins_dir']."/$plug_name/tpl/$mode/tpl/make.tpl");
+								$tpl_file = "# main TPL file for {$tpl_arr['MMP_PLUGTITLE']} plugin\n".$tpl_file;
+								file_put_contents("$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.tpl", $tpl_file);
+							} else {
+								toLog($L['mplug_error'].cot_rc($L['mplug_nofile'],array('folder'=>$source)));
+							}
+						} else {
+
 						}
+						toLog(cot_rc($L['mplug_newfolder'],array(1=>$dirname)));
 					}
 				}
 			}
@@ -178,34 +204,45 @@ switch ($a) {
 			toError($main_folder);
 		}
 		$log_tpl->parse('LOG');
-		$plugin_body = $log_tpl->text('LOG');
+		if ($cfg['turnajax']) {
+			echo $log_tpl->text('LOG');
+			exit;
+		} else {
+			$plugin_body = $log_tpl->text('LOG');
+		}
 		break;
 
 	default: // generate form with extension params
-		$count =0;
-		$ext_cat = getExtensionCategories();
-		$ext_cat_selector = cot_selectbox('', 'plf[ext_cat]', array_keys($ext_cat),array_map(html_entity_decode,array_values($ext_cat)),true);
-
-		foreach ($tpl_modes as $k => $v) { // Mode (version) selection
-			$count++;
-			$in['id']=$count;
-			$in['typ']=$k;
-			$in['desc']=$v;
-			$in['check']= ($count==2) ? ' checked="checked"': '';
-			$tpl -> assign('in',$in);
-			$tpl->parse('MAIN.INPUT_TYP');
+		if ($cfg['jquery']) {
+			$count =0;
+			$ext_cat = getExtensionCategories();
+			$ext_cat_selector = cot_selectbox('', 'plf[ext_cat]', array_keys($ext_cat),array_map(html_entity_decode,array_values($ext_cat)),true);
+			foreach ($tpl_modes as $k => $v) { // Mode (version) selection
+				$count++;
+				$in['id']=$count;
+				$in['typ']=$k;
+				$in['desc']=$v;
+				$in['check']= ($count==2) ? ' checked="checked"': '';
+				$tpl -> assign('in',$in);
+				$tpl->parse('MAIN.JQUERY.INPUT_TYP');
+			}
+			$count =0;
+			foreach ($tpl_arr as $k => $v) { // отрисовка форм параметров
+				$count++;
+				$in['num']=$count;
+				$in['val']=$v;
+				$in['text']= (in_array($k,$bold_tag)) ? "<b>$k</b>" : $k;
+				$tpl -> assign('in',$in);
+				$tpl->parse('PRM.INPUT_PRM');
+			}
+			$tpl->parse('PRM');
+			$tpl->assign('PRM',$tpl->text('PRM'));
+			$tpl->parse('MAIN_CFG');
+			$tpl->assign('MAIN_CFG',$tpl->text('MAIN_CFG'));
+			$tpl->parse('MAIN.JQUERY');
+		} else {
+			$tpl->parse('MAIN.NOJQUERY');
 		}
-		$count =0;
-		foreach ($tpl_arr as $k => $v) { // отрисовка форм параметров
-			$count++;
-			$in['num']=$count;
-			$in['val']=$v;
-			$in['text']= (in_array($k,$bold_tag)) ? "<b>$k</b>" : $k;
-			$tpl -> assign('in',$in);
-			$tpl->parse('PRM.INPUT_PRM');
-		}
-		$tpl->parse('PRM');
-		$tpl->assign('PRM',$tpl->text('PRM'));
 		$tpl->parse('MAIN');
 		$plugin_body .= $tpl->text('MAIN');
 		break;

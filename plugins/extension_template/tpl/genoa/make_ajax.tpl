@@ -12,7 +12,7 @@ Order={MMP_PLUGORDER}
 {MMP_PEND}
 ==================== */
 
-if (!defined('{MMP_CODEMARK}') && defined('SED_AJAX')) { die('{MMP_DIEMARK} ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('{MMP_CODEMARK}') or die('Wrong URL.');
 define('{MMP_PLUGNAME}_AJAX',TRUE);
 $plug_name = '{MMP_PLUGNAME}';
 $base_path = $cfg['plugins_dir']."/$plug_name ";

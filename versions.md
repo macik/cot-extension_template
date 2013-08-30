@@ -8,10 +8,20 @@ Changelog
 ---------
 
 
+### v1.2.0 (2013-Augr-28)  
+
+* Fixed extension generation in Genoa mode
++ Added propper workflow with different admin themes (Priori, Bootstrap, Foster)
++ Generation log view without settings reset
+* Fixed working with ajax on/off
++ Javascript separated from HTML block 
+* Javascript rewritten for common jQuery version compatibility 
+* Some minor fixes in Genoa templates
+
 ### v1.1.2 (2013-Mar-15)  
 
 - Removed closing PHP tags from Siena templates
-
++ Support for new style of naming Extension categories array (since Siena 0.9.13)
 
 ### v1.1.1 (2013-Feb-15)  
 

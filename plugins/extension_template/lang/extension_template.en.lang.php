@@ -25,13 +25,13 @@ $L['mplug_addon'] = 'Addition files';
 $L['mplug_goto2'] = 'Create Extension template files';
 
 $L['mplug_log'] = 'Wrote {$0} bytes in file <b>{$1}</b>';
-$L['mplug_creating'] = 'Creating files';
+$L['mplug_creating'] = 'Files creation log';
 $L['mplug_err1'] = 'Error creating folder: {$1}';
 $L['mplug_back'] = 'Back to configuration and creates another one template';
 $L['mplug_params'] = 'Check Extension params';
 
 $L['mplug_select'] = 'Select target version of CMF';
-$L['mplug_folders'] = 'Make addition folders (inc, img, js, lib, tpl, classes)';
+$L['mplug_folders'] = 'Make addition folder (inc, img, js, lib, tpl, classes)';
 $L['mplug_subfolders'] = '(comma separated subfolders)';
 $L['mplug_langdesc'] = '(comma separated lang codes, e.g.: ru,en)';
 $L['mplug_common'] = 'Shared extension files ';
@@ -39,6 +39,13 @@ $L['mplug_common'] = 'Shared extension files ';
 $L['mplug_mdfiles'] = 'Other files ';
 $L['mplug_mddesc'] = 'Description file for plugin';
 $L['mplug_mdvers'] = 'History of version changes';
+
+$L['mplug_error'] = 'Error: ';
+$L['mplug_nofolder'] = 'Folder "{$folder}" not exists';
+$L['mplug_nofile'] = 'File "{$file}" not exists';
+$L['mplug_newfolder'] = 'Creating new folder: {$1}';
+
+$L['mplug_nojquery'] = 'Sorry, this extension works only with jQuery enabled. You can turn it on on <a href="'.cot_url('admin','m=config&n=edit&o=core&p=performance').'" title="Performance settings">settings page</a>.';
 
 $L['mplug_wrongmode'] = 'Wrong Mode settings: ';
 
