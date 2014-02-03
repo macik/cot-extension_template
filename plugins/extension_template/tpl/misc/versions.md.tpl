@@ -11,6 +11,6 @@ Changelog
 
 ### v{MMP_VERSION} ({MMP_PLUGDATE})
 
-* Base functions
+* Basic features
 
 <!-- END: MAIN -->

@@ -11,6 +11,16 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /*
+
+global $cfg;
+
+if (!defined('COT_UPGRADE')){
+	if (!file_exists($cfg['cache_dir'] . '/{MMP_PLUGNAME}'))
+	{
+		@mkdir($cfg['cache_dir'] . '/{MMP_PLUGNAME}', $cfg['dir_perms'], true);
+	}
+}
+
 // adding Extrafield to pages
 $field = array(
 				'{MMP_PLUGNAME}_exf1',

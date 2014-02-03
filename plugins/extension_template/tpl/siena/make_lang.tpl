@@ -12,7 +12,8 @@ defined('COT_CODE') or die('Wrong URL');
 $L['plu_title'] = '{MMP_PLUGTITLE}'; // Title for stand alone
 
 $L['info_desc'] ='{MMP_PLUGDESC}'; // plugin description
-//$L['info_notes'] = ''; // still buggy in Siena 0.9.12
+if (version_compare($cfg['version'], '0.9.12') > 0) // still buggy in Siena 0.9.12
+	$L['info_notes'] = '{MMP_NOTES}'; 
 
 $L['cfg_VAR'] =array('Param name','description'); // cfg l10n
 $L['cfg_VAR_params'] = array(1,2,3);

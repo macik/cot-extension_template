@@ -1,7 +1,7 @@
 <!-- BEGIN: MAIN --><?php
 /**
  * {MMP_PLUGTITLE} plugin API
- * @package {MMP_PLUGNAME}
+ * @package Plugins/{MMP_PLUGNAME|mb_convert_case($this, 2)}
  * @author {MMP_AUTHOR_NAME}
  * @copyright {MMP_COPYRIGHT}
  * @license {MMP_LICENSE}

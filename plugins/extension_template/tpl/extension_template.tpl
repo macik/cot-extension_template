@@ -17,8 +17,14 @@
 </div>
 <!-- END: NOJQUERY -->
 <!-- BEGIN: JQUERY -->
-
 <script type="text/javascript">
+String.prototype.arg = function() {
+    var i = -1, args = arguments;
+    return this.replace(/#\{(.*?)\}/g, function(one, two) {
+        return (typeof args[0] == 'object')?args[0][two]:args[++i];
+    });
+};
+
 $(document).ready( function() {
 
 	/* 	Bootstrap style accordion animation code */
@@ -56,17 +62,41 @@ $(document).ready( function() {
 	});
 	/* end of Bootstrap style accordion animation code */
 
+	// enable togglers
+	$('.toggler').change(function(){
+		var $input = $(this),
+			id = $input.attr('id');
+		if (id) {
+			if ($input.prop('checked')) {
+				$('.'+id).show(100);
+			} else {
+				$('.'+id).hide(100);
+			}
+		}
+	});
+
 	$('.pid_1,.pid_3,.pid_4').hide();
 
+	var valold=$('#pni').val().replace(/[^a-z0-9_]/ig,'');;
 	// track extension filename change
 	$('#pni').keyup(function(){
 		var val = this.value.replace(/[^a-z0-9_]/ig,'');
-		this.value = val;
-		$('.ttl').text(val);
-		$('#id_1,#id_4').val(val);
-		$('#id_3').val(val+'_');
-	});
-
+		if (val !== valold) {
+			valold = val;
+			this.value = val;
+			$('.ttl').text(val);
+			$('#id_1,#id_4').val(val);
+			$('#id_3').val(val+'_');
+		}
+	}).change(function(){
+ 		if (this.value.replace(/[^a-z0-9_]/ig,'') == '') {
+ 			val = 'pluginname';
+			this.value = val;
+			$('.ttl').text(val);
+			$('#id_1,#id_4').val(val);
+			$('#id_3').val(val+'_');
+		}
+ 	});
 
 	$('div.panes').show(200);
 
@@ -178,57 +208,102 @@ $(document).ready( function() {
 <div id="options">
     <div id="nameopt"><strong>{PHP.L.mplug_name}</strong><br />
         <input id="pni" name="plf[name]" type="text" value="plug_filename" onkeyup="" />
-{PHP.L.mplug_name2}<br /><br />
-<div id="SIENA_cat">{PHP.L.mplug_category}: {PHP.ext_cat_selector}</div>
+		{PHP.L.mplug_name2}
+		<br /><br />
+		<div id="SIENA_cat">{PHP.L.mplug_category}: {PHP.ext_cat_selector}</div>
+	</div>
+	<div id="mainopt">
+    	<div class="chk">
+	    	<input class="toggler" id="makedirs" checked="checked" type="checkbox" name="plf[makedirs]" value="1" />
+	    	<label class="" for="makedirs">
+	    		<strong>{PHP.L.mplug_folders}</strong>
+    		</label>
+    		(inc, img, js, lib, tpl, classes)
+    		<br />
+    		<div class="makedirs">
+    			<span id="spdirs" class="mrg"><input id="pdirs" name="plf[dirsname]" type="text" value="inc,img,js,lib,tpl" /> {PHP.L.mplug_subfolders}</span>
+    		</div>
+    	</div>
+    	<div class="chk">
+	    	<label class="" for="">
+	    		<input id="makelang"  class="toggler" checked="checked" type="checkbox" name="plf[lang]" value="1" />
+    			<strong>{PHP.L.mplug_lang}</strong>
+			</label>
+    		<br />
+    		<div class="makelang">
+    			<span id="splang" class="mrg"><input id="plang" name="plf[langlist]" type="text" value="ru,en" /> {PHP.L.mplug_langdesc}</span>
+    			<br />
+    			<span class="ttl mrg">plug_filename</span>.*.lang.php
+    		</div>
+    	</div>
+  		<!--    <span class="ttl mrg">plug_filename</span>.en.lang.php<br />
+    	<span class="ttl mrg">plug_filename</span>.ru.lang.php</div> -->
+    	<div class="chk">
+	    	<label class="" for="">
+	    		<input checked="checked" type="checkbox" name="plf[main]" value="1" />
+    			<strong>{PHP.L.mplug_main}</strong>
+    		</label>
+    		<br />
+    		<span class="ttl mrg">plug_filename</span>.php
+    	</div>
+		<div id="sed_setup" class="chk">
+    		<label class="" for="">
+    			<input checked="checked" type="checkbox" name="plf[setup]" value="1" />
+    			<strong>{PHP.L.mplug_setup}</strong>
+    		</label>
+    		<br />
+    		<span class="ttl mrg">plug_filename</span>.setup.php
+    	</div>
+    	<br/>
+    	<div id="SIENA_setup" class="chk" style="display:block;">
+        	<label><input class="add" type="checkbox" name="plf[siena][configure.sql]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.configure.sql</label><br/>
+        	<label><input class="add" type="checkbox" name="plf[siena][configure.php]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.configure.php</label><br/>
+        	<label><input class="add" type="checkbox" name="plf[siena][install.sql]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.install.sql</label><br/>
+        	<label><input class="add" type="checkbox" name="plf[siena][install.php]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.install.php</label><br/>
+        	<label><input class="add" type="checkbox" name="plf[siena][uninstall.sql]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.uninstall.sql</label><br/>
+        	<label><input class="add" type="checkbox" name="plf[siena][uninstall.php]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.uninstall.php</label><br/>
+    	</div>
+	</div>
+	<div id="addon">
+    	<strong>{PHP.L.mplug_addon}</strong> (ajax, header, tools, rc, ...):
+    	<a class="add_file_input" href="#" >({PHP.L.Add})</a>
+    	<br />
+    	<label class="inline" for="addon_0">
+    		<input id="addon_0" class="add" type="checkbox" name="plug[0][used]" value="1" />
+    		<span id="plug_ttl" class="ttl">plug_filename</span>
+    	</label>
+    	.<input name="plug[0][name]" type="text" value="header" />
+		<div id="cf"></div>
+	</div>
+	<div id="SIENA_res"  style="display:block;" class="chk">
+    	<strong>{PHP.L.mplug_common}</strong> (functions, resource):
+    	<br/>
+    	<label>
+    		<input class="add" type="checkbox" name="plf[siena][functions.php]" value="1" />
+    		inc/<span id="plug_ttl" class="ttl">plug_filename</span>.functions.php
+    	</label>
+    	<br/>
+    	<label>
+    		<input class="add" type="checkbox" name="plf[siena][resources.php]" value="1" />
+    		inc/<span id="plug_ttl" class="ttl">plug_filename</span>.resources.php
+    	</label>
+    	<br/>
+	</div>
+	<div id="SIENA_md"  style="display:block;" class="chk">
+    	<strong>{PHP.L.mplug_mdfiles}</strong>
+    	<br/>
+    	<label>
+    		<input checked="checked" class="add" type="checkbox" name="plf[misc][readme.md]" value="1" />
+    		README.md - {PHP.L.mplug_mddesc}
+    	</label>
+    	<br/>
+    	<label>
+    		<input class="add" type="checkbox" name="plf[misc][versions.md]" value="1" />
+    		versions.md - {PHP.L.mplug_mdvers}
+    	</label>
+    	<br/>
+	</div>
 </div>
-<div id="mainopt">
-    <div class="chk"><input id="makedirs" checked="checked" type="checkbox" name="plf[makedirs]" value="1" onchange="if ($('#makedirs').attr('checked')) {$('#spdirs').show(100);} else {$('#spdirs').hide(100);}" />
-    &nbsp;<strong>{PHP.L.mplug_folders}</strong><br />
-    <span id="spdirs" class="mrg"><input id="pdirs" name="plf[dirsname]" type="text" value="inc,img,js,lib,tpl" /> {PHP.L.mplug_subfolders}</span>
-    </div>
-    <div class="chk"><input id="makelang" checked="checked" type="checkbox" name="plf[lang]" value="1" onchange="if ($('#makelang').attr('checked')) {$('#splang').show(100);} else {$('#splang').hide(100);}" />
-    &nbsp;<strong>{PHP.L.mplug_lang}</strong><br />
-    <span id="splang" class="mrg"><input id="plang" name="plf[langlist]" type="text" value="ru,en" /> {PHP.L.mplug_langdesc}</span>
-    <br /><span class="ttl mrg">plug_filename</span>.*.lang.php
-    </div>
-  <!--    <span class="ttl mrg">plug_filename</span>.en.lang.php<br />
-    <span class="ttl mrg">plug_filename</span>.ru.lang.php</div> -->
-    <div class="chk"><input checked="checked" type="checkbox" name="plf[main]" value="1" />
-    &nbsp;<strong>{PHP.L.mplug_main}</strong><br />
-    <span class="ttl mrg">plug_filename</span>.php</div>
-<div id="sed_setup" class="chk"><input checked="checked" type="checkbox" name="plf[setup]" value="1" />
-    &nbsp;<strong>{PHP.L.mplug_setup}</strong>
-    <br /><span class="ttl mrg">plug_filename</span>.setup.php</div><br/>
-    <div id="SIENA_setup" class="chk" style="display:block;">
-        <input class="add" type="checkbox" name="plf[siena][configure.sql]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.configure.sql<br/>
-        <input class="add" type="checkbox" name="plf[siena][configure.php]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.configure.php<br/>
-        <input class="add" type="checkbox" name="plf[siena][install.sql]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.install.sql<br/>
-        <input class="add" type="checkbox" name="plf[siena][install.php]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.install.php<br/>
-        <input class="add" type="checkbox" name="plf[siena][uninstall.sql]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.uninstall.sql<br/>
-        <input class="add" type="checkbox" name="plf[siena][uninstall.php]" value="1" />&nbsp;setup/<span id="plug_ttl" class="ttl">plug_filename</span>.uninstall.php<br/>
-    </div>
-</div>
-<div id="addon"><strong>{PHP.L.mplug_addon}</strong> (ajax, header, tools, rc, ...):
-    &nbsp;<a class="add_file_input" href="#" >({PHP.L.Add})</a><br />
-    <label class="inline" for="addon_0"><input id="addon_0" class="add" type="checkbox" name="plug[0][used]" value="1" />
-    &nbsp;<span id="plug_ttl" class="ttl">plug_filename</span></label>.<input name="plug[0][name]" type="text" value="header" />
-<div id="cf"></div>
-</div>
-<div id="SIENA_res"  style="display:block;" class="chk"><strong>{PHP.L.mplug_common}</strong> (functions, resource):<br/>
-    <input class="add" type="checkbox" name="plf[siena][functions.php]" value="1" />
-    &nbsp;inc/<span id="plug_ttl" class="ttl">plug_filename</span>.functions.php<br/>
-    <input class="add" type="checkbox" name="plf[siena][resources.php]" value="1" />
-    &nbsp;inc/<span id="plug_ttl" class="ttl">plug_filename</span>.resources.php<br/>
-</div>
-<div id="SIENA_md"  style="display:block;" class="chk"><strong>{PHP.L.mplug_mdfiles}</strong><br/>
-    <input checked="checked" class="add" type="checkbox" name="plf[misc][readme.md]" value="1" />
-    &nbsp;README.md - {PHP.L.mplug_mddesc}<br/>
-    <input class="add" type="checkbox" name="plf[misc][versions.md]" value="1" />
-    &nbsp;versions.md - {PHP.L.mplug_mdvers}<br/>
-</div>
-
-</div>
-
 <!-- END: MAIN_CFG -->
 -----------------------------------------------
 <!-- BEGIN: LOG -->
@@ -322,7 +397,7 @@ MMP_PLUGPART >>
 MMP_TAGS >> example.tpl:{EXAMPLE_TAG}
 MMP_COPYRIGHT >> Copyright (c) 2011-{PHP|date("Y")}
 MMP_AUTHOR_NAME >> {PHP.cfg.plugin.extension_template.author}
-MMP_NOTES >> If your enjoy my plugin please consider donating to help support future developments. Thanks! mailto:{PHP.cfg.plugin.extension_template.email}
+MMP_NOTES >> If your enjoy my plugin please consider donating to help support future developments. <b>Thanks!</b> <br /> <a href="mailto:{PHP.cfg.plugin.extension_template.email}">{PHP.cfg.plugin.extension_template.email}</a>
 MMP_LICENSE >> Distributed under {PHP.cfg.plugin.extension_template.licence} license.
 MMP_PLUGLANG >> en
 MMP_PLUGPATH >> plugins

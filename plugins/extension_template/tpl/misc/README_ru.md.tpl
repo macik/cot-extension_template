@@ -61,14 +61,15 @@
 Авторство
 ---------
 
-{MMP_AUTHOR_NAME}
+[Андрей Мацовкин](https://github.com/macik/)
+
 
 
 Ссылки
 ------
 
 * [Cotonti.com](http://Cotonti.com/) -- Home of Cotonti CMF
-* [{MMP_PLUGNAME} на GitHub](https://github.com/macik/cot-{MMP_PLUGNAME}) -- Страница плагина на GitHub
+* [{MMP_PLUGNAME} на GitHub](https://github.com/macik/cot-{MMP_PLUGNAME}) -- Свежая версия на GitHub
 
  
 <!-- END: MAIN -->

@@ -35,13 +35,13 @@ function getExtensionCategories(){
  * @param str $linebreak - lines delimiter
  */
 function parseParams($text,$delimiter='>>',$linebreak=PHP_EOL){
-    $arr = explode($linebreak, $text);
-    $tpl_arr = array();
-    foreach ($arr as $value) {
-        list($mrk,$str) = explode($delimiter, $value);
-        $tpl_arr[trim($mrk)]=trim($str);
-    }
-    return $tpl_arr;
+	$arr = explode($linebreak, $text);
+	$tpl_arr = array();
+	foreach ($arr as $value) {
+		list($mrk,$str) = explode($delimiter, $value);
+		$tpl_arr[trim($mrk)]=trim($str);
+	}
+	return $tpl_arr;
 }
 
 /**
@@ -61,6 +61,25 @@ function getTemplate($mode,$name,$type='make_'){
 }
 
 /**
+ * Copies file from $source to $target with log prints
+ * @param string $source - source file
+ * @param string $target - target file
+ * @param string $text_to_insert - text to insert before file contents
+ */
+function copyFile($source,$target,$text_to_insert=''){
+	if (file_exists($source)) {
+		$file = pathinfo($target,PATHINFO_FILENAME).'.'.pathinfo($target,PATHINFO_EXTENSION);
+		if ($text_to_insert) {
+			toLog(cot_rc('mplug_log',array(sizeCounter(file_put_contents($target, $text_to_insert.file_get_contents($source))), $file)));
+		} elseif (copy($source,$target)) {
+			toLog(cot_rc('mplug_log',array(sizeCounter(filesize($target)), $file)));
+		}
+	} else {
+		toLog(cot_rc('mplug_nofile',array('file'=>$source)));
+	}
+}
+
+/**
  * Creates file with template
  * Uses global $ex_tpl template if other not specified
  * @param string $filename - Filename (with path) to create file
@@ -68,12 +87,13 @@ function getTemplate($mode,$name,$type='make_'){
  * @return integer|boolean - Number of bytes written or false otherwise
  */
 function makeFile($filename,$tpl=null){
-	global $ex_tpl, $tpl_arr;
-	if ($filename) {
-		if (is_null($tpl)) $tpl = $ex_tpl;
+	global $ex_tpl, $tpl_arr, $L;
+	if ($filename && !is_null($tpl)) {
+		$file = pathinfo($filename,PATHINFO_FILENAME).'.'.pathinfo($filename,PATHINFO_EXTENSION);
 		$tpl->assign($tpl_arr);
 		$tpl->parse('MAIN');
-		return file_put_contents($filename,$tpl->text('MAIN'));
+		toLog(cot_rc('mplug_log',array(sizeCounter(file_put_contents($filename,$tpl->text('MAIN'))),$file)));
+		return true;
 	}
 	return false;
 }
@@ -88,6 +108,7 @@ function toLog($str=''){
 		$log_tpl->assign('logline',$str);
 		$log_tpl->parse('LOG.LINE');
 	}
+	return $str;
 }
 
 /**
@@ -109,7 +130,25 @@ function toError($msg=''){
  */
 function checkDir($dir_path){
 	global $cfg;
-	return (file_exists($dir_path) || @mkdir($dir_path, $cfg['dir_perms'], true));
+	$dirs = explode('/',$dir_path);
+	$dirname = array_pop($dirs);
+	if (!$dirname) $dirname = array_pop($dirs);
+	return file_exists($dir_path)
+	|| ( @mkdir($dir_path, $cfg['dir_perms'], true) && toLog(cot_rc('mplug_newfolder',array(1=>$dirname))));
+}
+
+/**
+ * counts total files size
+ * @param number $size - size of file
+ * @return size of file
+ */
+function sizeCounter($size=0){
+	global $extpl_total_size, $extpl_last_size;
+	if ($size) {
+		$extpl_last_size = $size;
+		$extpl_total_size += $size;
+	}
+	return $size;
 }
 
 $mode = cot_import('mode','G','ALP') ? cot_import('mode','G','ALP') : (cot_import('plugtyp','P','ALP') ? cot_import('plugtyp','P','ALP') : 'SIENA');
@@ -122,8 +161,8 @@ $tpl = new XTemplate(cot_tplfile($plug_name, 'plug'));
 $tpl->parse('TPL_MODES');
 $tpl_modes = parseParams($tpl->text('TPL_MODES'));
 if (!array_key_exists($mode, $tpl_modes)) {
-    echo $L['mplug_wrongmode'].$mode;
-    exit;
+	echo $L['mplug_wrongmode'].$mode;
+	exit;
 }
 $mode_block = 'TPL_MARKS_'.strtoupper($mode);
 // init array of tokens for selected mode (version)

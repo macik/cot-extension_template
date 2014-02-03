@@ -30,7 +30,7 @@ if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' || (strtolower($_SERV
 		foreach ($tpl_arr as $k => $v) { // отрисовка форм параметров
 			$count++;
 			$in['num']=$count;
-			$in['val']=$v;
+			$in['val']=str_replace('"',"'",$v);
 			$in['text']= (in_array($k,$bold_tag)) ? "<b>$k</b>" : $k;
 			$tpl -> assign('in',$in);
 			$tpl->parse('PRM.INPUT_PRM');

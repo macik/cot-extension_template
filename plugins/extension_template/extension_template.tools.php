@@ -1,6 +1,6 @@
 <?php
 /* ====================
- [BEGIN_COT_EXT]
+[BEGIN_COT_EXT]
 Hooks=tools
 [END_COT_EXT]
 ==================== */
@@ -23,8 +23,11 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) {
 *  ? save settings as profiles
 *  + add controls to set setup file variables
 *  + add support to make modules
+*  + add links to add addition parts (ajax, tools, rc)
+*  + close accordion on «generate» press
 *
 * DONE:
+*  + add output total size of all files
  * + do not clear setting after plugin created
  * + fix Siena/Genao mode switching
 *  + added LOG view without settings reset
@@ -73,42 +76,47 @@ switch ($a) {
 		$keys = array_keys($tpl_arr);
 		foreach ($_POST as $k => $v) { // gets all params starts with PRM
 			if (substr($k,0,3)=='prm') {
-				$tpl_arr[$keys[substr($k,4)-1]] = cot_import($k,'P','TXT');
+				// need some escape magic for NOTE parameter (ID:#12)
+				$val = cot_import($k,'P',($k == 'prm_12') ? 'HTM' : 'TXT');
+				if ($k == 'prm_12') $val = str_replace("'","\'",$val);
+				$tpl_arr[$keys[substr($k,4)-1]] = $val;
 			}
 		}
 		$plf = cot_import('plf','P','ARR');//$_POST['plf'];
-		$tpl_arr['MMP_PLUGNAME'] = preg_replace('/[^a-z_]+/i', '', $tpl_arr['MMP_PLUGNAME']);
+		$tpl_arr['MMP_PLUGNAME'] = preg_replace('/[^a-z0-9_]+/i', '', $tpl_arr['MMP_PLUGNAME']);
 		$base_folder = $et_cfg['outputdir'] ? $et_cfg['outputdir'] : $cfg['plugins_dir']."/$plug_name/created/";
 		$base_folder = str_replace('\\','/',$base_folder);
 		$base_folder .= $base_folder[strlen($base_folder)-1]=='/' ? '' : '/';
 		$main_folder = $base_folder.$tpl_arr['MMP_PLUGNAME'].'/'; // for ex. plugins/extension_template/created/plugname/
 
 		if (checkDir($main_folder)) { // makes Extension base folder
-			copy($cfg['plugins_dir']."/$plug_name/img/icon.png","$main_folder{$tpl_arr['MMP_PLUGNAME']}.png");
-			if ($mode=='siena' && $plf['makedirs']) { // if subfolders needed
+			// copying plugin sample icon
+			$source = $cfg['plugins_dir']."/$plug_name/img/icon.png";
+			$target = $main_folder.$tpl_arr['MMP_PLUGNAME'].'.png';
+			if ($mode=='siena') copyFile($source, $target);
+
+			if ( $plf['makedirs']) { // if subfolders needed // $mode=='siena' &&
 				$dirs = explode(',',$plf['dirsname']);
-				if ($mode=='cot') {
+/*				if ($mode=='cot') {  проверить назначение
 					array_push($dirs,'setup');
-				}
+				}  */
 				$dirs = array_unique($dirs);
 				foreach ($dirs as $dirname) {
 					if (checkDir($main_folder.$dirname)) {
 						$source_folder = $cfg['plugins_dir']."/$plug_name/tpl/$mode/$dirname/";
+						//toLog(cot_rc($L['mplug_newfolder'],array(1=>$dirname)));
 						if ($dirname == 'tpl') {
-							$source = $source_folder.'make.css';
-							$target = "$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.css";
-							if (file_exists($source)) {
-								copy($source,$target);
-								$tpl_file = file_get_contents($cfg['plugins_dir']."/$plug_name/tpl/$mode/tpl/make.tpl");
-								$tpl_file = "# main TPL file for {$tpl_arr['MMP_PLUGTITLE']} plugin\n".$tpl_file;
-								file_put_contents("$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.tpl", $tpl_file);
-							} else {
-								toLog($L['mplug_error'].cot_rc($L['mplug_nofile'],array('folder'=>$source)));
+							if ($mode=='siena') {
+								// copying css file
+								$source = $source_folder.'make.css';
+								$target = "$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.css";
+								copyFile($source, $target);
+								// copying tpl sample file
+								$source = $cfg['plugins_dir']."/$plug_name/tpl/$mode/tpl/make.tpl";
+								$target = "$main_folder$dirname/{$tpl_arr['MMP_PLUGNAME']}.tpl";
+								copyFile($source, $target, "# main TPL file for {$tpl_arr['MMP_PLUGTITLE']} plugin\n");
 							}
-						} else {
-
 						}
-						toLog(cot_rc($L['mplug_newfolder'],array(1=>$dirname)));
 					}
 				}
 			}
@@ -121,7 +129,7 @@ switch ($a) {
 							$ex_tpl = getTemplate($mode,'lang');
 							$tpl_arr['MMP_PLUGLANG'] = $lng;
 							$lng_filename =$tpl_arr['MMP_PLUGNAME'].'.'.$lng.'.lang.php';
-							toLog(cot_rc('mplug_log',array(makeFile($lng_folder.$lng_filename),$lng_filename)));
+							makeFile($lng_folder.$lng_filename, $ex_tpl);
 						}
 					}
 				} else toError($lng_folder);
@@ -135,7 +143,7 @@ switch ($a) {
 						$ex_tpl->parse('MAIN.CONF_VAR');
 					}
 					$file_name =$tpl_arr['MMP_PLUGNAME'].(($part_name=='main')?'':'.'.$part_name).'.php';
-					toLog(cot_rc('mplug_log',array(makeFile($main_folder.$file_name),$file_name)));
+					makeFile($main_folder.$file_name, $ex_tpl);
 				}
 			}
 			$plug = cot_import('plug','P','ARR');
@@ -158,7 +166,7 @@ switch ($a) {
 					}
 
 					$file_name = $tpl_arr['MMP_PLUGNAME'].'.'.$v1['name'].'.php';
-					toLog(cot_rc('mplug_log',array(makeFile($main_folder.$file_name),$file_name)));
+					makeFile($main_folder.$file_name, $ex_tpl);
 				}
 			}
 
@@ -169,12 +177,12 @@ switch ($a) {
 						if ($ex_tpl) {
 							$res_file= $tpl_arr['MMP_PLUGNAME'].'.'.$k;
 							if (in_array($k[0],array('c','i','u')) ) {// these files we placed in «setup» folde
-								$folder = $main_folder.'setup/';
+								$folder = $main_folder.'setup';
 							} else {
-								$folder = $main_folder.'inc/';
+								$folder = $main_folder.'inc';
 							}
 							if (checkDir($folder)) {
-								toLog(cot_rc('mplug_log',array(makeFile($folder.$res_file),$res_file)));
+								makeFile($folder.'/'.$res_file, $ex_tpl);
 							}
 						}
 					}
@@ -185,24 +193,26 @@ switch ($a) {
 				foreach ($plf['misc'] as $k=>$v) {
 					if ($v) {
 						if ($k == 'readme.md') {
+							if (!is_array($langs)) $langs[] = 'en';
 							foreach ($langs as $lng) { // for languages
 								$lng = strtolower($lng);
 								if (preg_match("/[A-Z]{2}/i", $lng)) {
 									$k = 'README'.($lng!='en'?'_'.$lng:'').'.md';
 									$ex_tpl = getTemplate('misc', $k, '');
-									if ($ex_tpl) toLog(cot_rc('mplug_log',array(makeFile($md_folder.$k),$k)));
+									makeFile($md_folder.$k, $ex_tpl);
 								}
 							}
 							continue;
 						}
 						$ex_tpl = getTemplate('misc', $k, '');
-						if ($ex_tpl) toLog(cot_rc('mplug_log',array(makeFile($md_folder.$k),$k)));
+						makeFile($md_folder.$k, $ex_tpl);
 					}
 				}
 			}
 		} else {
 			toError($main_folder);
 		}
+		toLog(cot_rc('mplug_size',array($extpl_total_size)));
 		$log_tpl->parse('LOG');
 		if ($cfg['turnajax']) {
 			echo $log_tpl->text('LOG');
@@ -230,7 +240,7 @@ switch ($a) {
 			foreach ($tpl_arr as $k => $v) { // отрисовка форм параметров
 				$count++;
 				$in['num']=$count;
-				$in['val']=$v;
+				$in['val']=str_replace('"',"'",$v);
 				$in['text']= (in_array($k,$bold_tag)) ? "<b>$k</b>" : $k;
 				$tpl -> assign('in',$in);
 				$tpl->parse('PRM.INPUT_PRM');

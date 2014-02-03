@@ -23,7 +23,7 @@ $base_path = $cfg['plugins_dir']."/$plug_name";
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', $plug_name);
 cot_block($usr['isadmin']);
 
-$adminhelp = $L['plu_help_comments'];
+$adminhelp = $L['plu_help_{MMP_PLUGNAME}'];
 
 $plugin_body .= 'Admin part of {MMP_PLUGFILE}.<br/>';
 

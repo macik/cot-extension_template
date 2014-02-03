@@ -57,3 +57,9 @@ ul.tabslist li{
 .inline{
 	display: inline;
 }
+.pointer,
+input[type=radio],
+input[type=checkbox],
+label {
+	cursor: pointer;
+}
