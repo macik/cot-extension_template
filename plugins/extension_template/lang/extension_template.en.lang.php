@@ -25,6 +25,7 @@ $L['mplug_addon'] = 'Addition files';
 $L['mplug_goto2'] = 'Create Extension template files';
 
 $L['mplug_size'] = 'Total files size {$0} bytes';
+$L['mplug_targetdir'] = 'Plugin files located in `{$0}` folder.';
 $L['mplug_log'] = 'Wrote {$0} bytes in file <b>{$1}</b>';
 $L['mplug_creating'] = 'Files creation log';
 $L['mplug_err1'] = 'Error creating folder: {$1}';
@@ -45,6 +46,7 @@ $L['mplug_error'] = 'Error: ';
 $L['mplug_nofolder'] = 'Error: Folder "{$folder}" not exists';
 $L['mplug_nofile'] = 'Error: File "{$file}" not exists';
 $L['mplug_newfolder'] = 'Creating new folder: {$1}';
+$L['mplug_cantcreate'] = 'Error: Can not create Folder "{$folder}". Check write permission for it.';
 
 $L['mplug_nojquery'] = 'Sorry, this extension works only with jQuery enabled. You can turn it on on <a href="'.cot_url('admin','m=config&n=edit&o=core&p=performance').'" title="Performance settings">settings page</a>.';
 

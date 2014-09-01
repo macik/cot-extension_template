@@ -21,22 +21,27 @@ if (!defined('COT_UPGRADE')){
 	}
 }
 
+require_once cot_incfile('extrafields');
+require_once cot_langfile('{MMP_PLUGNAME}', 'plug');
+cot::$db->registerTable('users');
+cot_extrafields_register_table('users');
+
 // adding Extrafield to pages
-$field = array(
-				'{MMP_PLUGNAME}_exf1',
-				'field_type' => 'input',
-				'field_html' => '<input type="text" name="{$name}" value="{$value}"  />',
-				'field_variants' => '',
-				'field_params' => '',
-				'field_description' => '{MMP_PLUGNAME} extra field',
-				'field_default' => '',
-				'field_required' => true,
-				'field_parse' => 'HTML',
-				'field_noalter' => false,
-				'field_enabled' => 1
+$ef = array(
+				'name' => '{MMP_PLUGNAME}_exf1',
+				'type' => 'input',
+				'html' => '<input type="text" name="{$name}" value="{$value}"  />',
+				'variants' => '',
+				'params' => '',
+				'description' => '{MMP_PLUGNAME} extra field',
+				'default' => '',
+				'required' => true,
+				'parse' => 'HTML',
+				'noalter' => false,
+				'enabled' => 1
 );
 
-if (cot_extrafield_add($db_x.'pages', $field['field_name'], $field['field_type'], $field['field_html'], $field['field_variants'], $field['field_default'], $field['field_required'], $field['field_parse'], $field['field_description'], $field['field_params'], $field['field_enabled'], $field['field_noalter']))
+if (cot_extrafield_add(cot::$db->users, $ef['name'], $ef['type'], $ef['html'], $ef['variants'], $ef['default'], $ef['required'], $ef['parse'], $ef['description'], $ef['params'], $ef['enabled'], $ef['noalter']))
 {
 	cot_message('adm_extrafield_added');
 }

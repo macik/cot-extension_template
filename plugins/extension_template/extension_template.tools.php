@@ -117,6 +117,8 @@ switch ($a) {
 								copyFile($source, $target, "# main TPL file for {$tpl_arr['MMP_PLUGTITLE']} plugin\n");
 							}
 						}
+					} else {
+						toLog(cot_rc('mplug_cantcreate',array(1=>$main_folder.$dirname)));
 					}
 				}
 			}
@@ -213,6 +215,7 @@ switch ($a) {
 			toError($main_folder);
 		}
 		toLog(cot_rc('mplug_size',array($extpl_total_size)));
+		toLog(cot_rc('mplug_targetdir',array($main_folder.$dirname)));
 		$log_tpl->parse('LOG');
 		if ($cfg['turnajax']) {
 			echo $log_tpl->text('LOG');

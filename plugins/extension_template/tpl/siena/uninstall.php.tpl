@@ -9,10 +9,15 @@
  */
 
 defined('COT_CODE') or die('Wrong URL');
+global $L;
 
 /*
+require_once cot_incfile('extrafields');
+require_once cot_langfile('{MMP_PLUGNAME}', 'plug');
+cot::$db->registerTable('users');
+
 // deleting extrafield from pages
-if (cot_extrafield_remove($db_x.'pages','{MMP_PLUGNAME}_exf1'))
+if (cot_extrafield_remove(cot::$db->users,'{MMP_PLUGNAME}_exf1'))
 {
 	cot_message('adm_extrafield_removed');
 }

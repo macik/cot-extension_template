@@ -24,7 +24,8 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', 
 cot_block($usr['auth_read']);
 //require cot_incfile('{MMP_PLUGNAME}', 'plug', 'common');
 
-header("Content-type: text/html; charset=utf-8");
+//header("Content-type: text/html; charset=utf-8");
+header("Content-type: application/json; charset=utf-8");
 if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' || (strtolower($_SERVER['SERVER_NAME'])=='localhost') ) {
     echo 'Test result. AJAX query OK.';
 } else {
