@@ -1,15 +1,14 @@
-<!-- BEGIN: MAIN --><?php
+# plugname.hookname.php
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
 /* ====================
 {MMP_PLBEGIN}
 Hooks={MMP_HOOK}
-<!-- IF {MMP_TAGS} -->
-Tags={MMP_TAGS}
-<!-- ENDIF -->
+<!-- IF {MMP_TAGS} -->Tags={MMP_TAGS}<!-- ENDIF -->
 {MMP_PLEND}
-
-Made with «Extension Template» (https://github.com/macik/cot-extension_template)
 ==================== */
-defined('{MMP_CODEMARK}') or die('Wrong URL.');
+defined('{MMP_CODEMARK}') or {FILE "{PHP.snippets}/die.snippet.tpl"}
+
 $plug_name = '{MMP_PLUGNAME}';
 // plugin '{MMP_PLUGPART}' part dump file
 

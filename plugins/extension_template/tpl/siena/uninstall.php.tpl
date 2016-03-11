@@ -1,14 +1,14 @@
-<!-- BEGIN: MAIN --><?php
-/**
+# setup/plugname.uninstall.php
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
+ /**
  * Removes all implanted configs
  *
- * @package {MMP_PLUGNAME}
- * @author {MMP_AUTHOR_NAME}
- * @copyright {MMP_COPYRIGHT}
- * @license {MMP_LICENSE}
+{FILE "{PHP.cfg.plugins_dir}/{PHP.this}/tpl/siena/snippets/phpdoc.snippet.tpl"}
  */
 
-defined('COT_CODE') or die('Wrong URL');
+defined('{MMP_CODEMARK}') or {FILE "{PHP.snippets}/die.snippet.tpl"}
+
 global $L;
 
 /*

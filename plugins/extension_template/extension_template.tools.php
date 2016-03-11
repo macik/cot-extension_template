@@ -14,13 +14,12 @@ Hooks=tools
  * @license Distributed under BSD License.
  */
 
-if (!defined('COT_CODE') && !defined('COT_PLUG')) {
-	die('Wrong URL ('.array_pop(explode("\\",__FILE__)).').');
-}
+defined('COT_CODE') or header('HTTP/1.1 '.$m='403 Forbidden') . die($m);
 
 /*
  * TODO: Extended plugin
 *  ? save settings as profiles
+*  + add Forbidden ext names list
 *  + add controls to set setup file variables
 *  + add support to make modules
 *  + add links to add addition parts (ajax, tools, rc)
@@ -45,6 +44,7 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) {
 
 $plug_name = 'extension_template';
 $base_path = $cfg['plugins_dir']."/$plug_name";
+$ext_name_re = '/[^a-z0-9_\-]+/i';
 
 switch ($cfg['admintheme']) {
 	case 'foster':
@@ -62,12 +62,46 @@ cot_block($usr['isadmin']);
 $scriptname = cot_url('admin','m=other&p=extension_template');
 
 $base_path = $cfg['plugins_dir']."/$plug_name";
+$snippets = $cfg['plugins_dir'].'/extension_template/tpl/siena/snippets';
 $inc_path  = "$base_path/inc";
 $tpl_path  = "$base_path/tpl";
+
+$TAG = '<?php';
 $ajax_link = (function_exists('cot_url')) ? cot_url('index',"r=$plug_name") : "plug.php?r=$plug_name";
 $et_cfg = $cfg['plugin'][$plug_name];
 //XTemplate::init(false); // debug only
 require_once cot_incfile($plug_name, 'plug');
+
+$forbidden_module_names = array(
+'mysqlport', 'mysqldb', 'mysqlcharset', 'mysqlcollate', 'mainurl',
+'multihost', 'site_id', 'secret_key', 'defaulttheme', 'defaultscheme',
+'defaulticons', 'defaultlang', 'enablecustomhf', 'cache', 'cache_drv',
+'xtpl_cache', 'cache_index', 'cache_page', 'cache_forums', 'check_updates',
+'display_errors', 'redirmode', 'xmlclient', 'ipcheck', 'authcache',
+'customfuncs', 'new_install', 'avatars_dir', 'cache_dir', 'lang_dir',
+'modules_dir', 'pfs_dir', 'photos_dir', 'plugins_dir', 'system_dir',
+'thumbs_dir', 'themes_dir', 'extrafield_files_dir', 'icons_dir', 'dir_perms',
+'file_perms', 'debug_mode', 'debug_logpath', 'shield_force',
+'useremailduplicate', 'version', 'dbversion', 'forcedefaultlang',
+'defaulttimezone', 'adminemail', 'clustermode', 'hostip', 'maintenance',
+'maintenancereason', 'devmode', 'parser', 'redirbkonlogin', 'redirbkonlogout',
+'maxrowsperpage', 'easypagenav', 'confirmlinks', 'jquery', 'turnajax',
+'topline', 'banner', 'bottomline', 'menu1', 'menu2', 'menu3', 'menu4',
+'menu5', 'menu6', 'menu7', 'menu8', 'menu9', 'freetext1', 'freetext2',
+'freetext3', 'freetext4', 'freetext5', 'freetext6', 'freetext7', 'freetext8',
+'freetext9', 'gzip', 'headrc_consolidate', 'headrc_minify', 'jquery_cdn',
+'cookiedomain', 'cookiepath', 'cookielifetime', 'captchamain',
+'captcharandom', 'forcedefaulttheme', 'homebreadcrumb', 'separator',
+'disablesysinfos', 'keepcrbottom', 'showsqlstats', 'msg_separate',
+'maintitle', 'subtitle', 'metakeywords', 'title_users_details',
+'title_header', 'title_header_index', 'subject_mail', 'body_mail',
+'forcerememberme', 'timedout', 'plugin', 'referercheck', 'shieldzhammer',
+'shieldtadjust', 'shieldenabled', 'hashfunc', 'default_show_installed',
+	);
+$forbidden_plugin_names = array(
+	''
+);
+
 
 switch ($a) {
 	case 'step2': // generates files with given params
@@ -83,7 +117,7 @@ switch ($a) {
 			}
 		}
 		$plf = cot_import('plf','P','ARR');//$_POST['plf'];
-		$tpl_arr['MMP_PLUGNAME'] = preg_replace('/[^a-z0-9_]+/i', '', $tpl_arr['MMP_PLUGNAME']);
+		$tpl_arr['MMP_PLUGNAME'] = preg_replace($ext_name_re, '', $tpl_arr['MMP_PLUGNAME']);
 		$base_folder = $et_cfg['outputdir'] ? $et_cfg['outputdir'] : $cfg['plugins_dir']."/$plug_name/created/";
 		$base_folder = str_replace('\\','/',$base_folder);
 		$base_folder .= $base_folder[strlen($base_folder)-1]=='/' ? '' : '/';
@@ -230,7 +264,7 @@ switch ($a) {
 			$count =0;
 			$ext_cat = getExtensionCategories();
 			$ext_cat_selector = cot_selectbox('', 'plf[ext_cat]', array_keys($ext_cat),array_map(html_entity_decode,array_values($ext_cat)),true);
-			foreach ($tpl_modes as $k => $v) { // Mode (version) selection
+			foreach ($tpl_modes as $k => $v) { // Mode (version) selection: Genoa / Siena
 				$count++;
 				$in['id']=$count;
 				$in['typ']=$k;

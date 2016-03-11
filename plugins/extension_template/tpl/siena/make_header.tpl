@@ -1,4 +1,6 @@
-<!-- BEGIN: MAIN --><?php
+# plugname.header.tpl
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
 /* ====================
 {MMP_PLBEGIN}
 Hooks=header.first
@@ -8,14 +10,11 @@ Hooks=header.first
 /**
  * {MMP_PLUGTITLE}
  *
- * @package {MMP_PLUGNAME}
- * @author {MMP_AUTHOR_NAME}
- * @copyright {MMP_COPYRIGHT}
- * @license {MMP_LICENSE}
- * Made with «Extension Template» (https://github.com/macik/cot-extension_template)
+{FILE "{PHP.snippets}/phpdoc.snippet.tpl"}
  */
 
-defined('{MMP_CODEMARK}') or die('Wrong URL.');
+defined('{MMP_CODEMARK}') or {FILE "{PHP.snippets}/die.snippet.tpl"}
+
 $plug_name = '{MMP_PLUGNAME}';
 
 

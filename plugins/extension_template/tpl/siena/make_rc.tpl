@@ -1,4 +1,6 @@
-<!-- BEGIN: MAIN --><?php
+# plugname.rc.php
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
 /* ====================
 {MMP_PLBEGIN}
 Hooks=rc
@@ -8,18 +10,15 @@ Hooks=rc
 /**
  * Header file for {MMP_PLUGTITLE} plugin
  *
- * @package {MMP_PLUGNAME}
- * @author {MMP_AUTHOR_NAME}
- * @copyright {MMP_COPYRIGHT}
- * @license {MMP_LICENSE}
- * Made with «Extension Template» (https://github.com/macik/cot-extension_template)
+{FILE "{PHP.snippets}/phpdoc.snippet.tpl"}
  */
 
-defined('{MMP_CODEMARK}') or die('Wrong URL.');
+defined('{MMP_CODEMARK}') or {FILE "{PHP.snippets}/die.snippet.tpl"}
 
 global $pl_cfg;
 $pl_cfg = $cfg['plugin']['{MMP_PLUGNAME}'];
 
+/*
 if ($_GET['e']=='{MMP_PLUGNAME}') {
     define('PLUGMARK',true);
     // cot_rc_add_file($cfg['plugins_dir'] . '/{MMP_PLUGNAME}/tpl/{MMP_PLUGNAME}.css');
@@ -33,5 +32,6 @@ if ($cfg['jquery'] && $cfg['turnajax']){
 } else {
 
 }
+*/
 
 <!-- END: MAIN -->

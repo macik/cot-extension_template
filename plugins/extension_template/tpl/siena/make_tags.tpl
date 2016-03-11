@@ -1,4 +1,6 @@
-<!-- BEGIN: MAIN --><?php
+# plugname.sometag.php
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
 /* ====================
 {MMP_PLBEGIN}
 Hooks=example.hook,example2.hook
@@ -9,14 +11,11 @@ Tags=index.tpl:{EXAMPLE_TAG},page.tpl:{EXAMPLE_TAG}
 /**
  * {MMP_PLUGTITLE}
  *
- * @package {MMP_PLUGNAME}
- * @author {MMP_AUTHOR_NAME}
- * @copyright {MMP_COPYRIGHT}
- * @license {MMP_LICENSE}
- * Made with «Extension Template» (https://github.com/macik/cot-extension_template)
+{FILE "{PHP.snippets}/phpdoc.snippet.tpl"}
  */
 
-defined('{MMP_CODEMARK}') or die('Wrong URL.');
+defined('{MMP_CODEMARK}') or {FILE "{PHP.snippets}/die.snippet.tpl"}
+
 $plug_name = '{MMP_PLUGNAME}';
 $base_path = $cfg['plugins_dir']."/$plug_name";
 //$inc_path  = "$base_path/inc";

@@ -1,4 +1,6 @@
-<!-- BEGIN: MAIN --><?php
+# plugname.ajax.php
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
 /* ====================
 {MMP_PLBEGIN}
 Hooks=ajax
@@ -8,14 +10,11 @@ Hooks=ajax
 /**
  * {MMP_PLUGTITLE} Ajax interaction back-end
  *
- * @package {MMP_PLUGNAME}
- * @author {MMP_AUTHOR_NAME}
- * @copyright {MMP_COPYRIGHT}
- * @license {MMP_LICENSE}
- * Made with «Extension Template» (https://github.com/macik/cot-extension_template)
+{FILE "{PHP.snippets}/phpdoc.snippet.tpl"}
  */
 
-defined('{MMP_CODEMARK}') or die('Wrong URL.');
+defined('{MMP_CODEMARK}') or {FILE "{PHP.snippets}/die.snippet.tpl"}
+
 // plug.php?r={MMP_PLUGNAME}
 define('{MMP_PLUGNAME}_AJAX',TRUE);
 $plug_name = '{MMP_PLUGNAME}';

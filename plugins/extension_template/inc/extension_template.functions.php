@@ -170,6 +170,7 @@ $tpl->parse($mode_block);
 $tpl_arr = parseParams($tpl->text($mode_block ));
 
 $bold_tag = array('MMP_PLUGNAME','MMP_PLUGDATE','MMP_VARPREFIX','MMP_PLUGFILE','MMP_HOOK','MMP_PLUGPART','MMP_TAGS','MMP_PLUGTITLE','MMP_PLUGDESC');
+$dimtag = array('');
 
 $mode= strtolower($mode);
 

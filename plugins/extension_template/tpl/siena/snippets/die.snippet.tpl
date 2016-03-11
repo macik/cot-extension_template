@@ -1,0 +1,1 @@
+header('HTTP/1.1 '.$m='403 Forbidden') . die($m);

@@ -7,11 +7,16 @@ Extension for Cotonti CMF. Plugin Description
 Changelog
 ---------
 
+### v1.3.0 (2016-Mar-10)  
+* Siena plugin templates reworked (simplified view with use of snippets)
 
-### v1.2.0 (2013-Augr-28)  
+### v1.2.5 (2014-Aug-31)
+
+
+### v1.2.0 (2013-Aug-28)  
 
 * Fixed extension generation in Genoa mode
-+ Added propper workflow with different admin themes (Priori, Bootstrap, Foster)
++ Added proper workflow with different admin themes (Priori, Bootstrap, Foster)
 + Generation log view without settings reset
 * Fixed working with ajax on/off
 + Javascript separated from HTML block 

@@ -48,7 +48,7 @@ $L['mplug_nofile'] = 'Error: File "{$file}" not exists';
 $L['mplug_newfolder'] = 'Creating new folder: {$1}';
 $L['mplug_cantcreate'] = 'Error: Can not create Folder "{$folder}". Check write permission for it.';
 
-$L['mplug_nojquery'] = 'Sorry, this extension works only with jQuery enabled. You can turn it on on <a href="'.cot_url('admin','m=config&n=edit&o=core&p=performance').'" title="Performance settings">settings page</a>.';
+$L['mplug_nojquery'] = 'Sorry, this extension works only with javascript enables and jQuery library. You can turn it on on <a href="'.cot_url('admin','m=config&n=edit&o=core&p=performance').'" title="Performance settings">settings page</a>.';
 
 $L['mplug_wrongmode'] = 'Wrong Mode settings: ';
 

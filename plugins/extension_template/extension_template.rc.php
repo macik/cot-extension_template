@@ -14,7 +14,7 @@ Hooks=rc
  * @license Distributed under BSD License.
  */
 
-if (!defined('COT_CODE') && !defined('COT_PLUG')) { die('Wrong URL ('.array_pop(explode("\\",__FILE__)).').'); }
+defined('COT_CODE') or header('HTTP/1.1 '.$m='403 Forbidden') . die($m);
 
 if ($cfg['jquery'] && defined('COT_ADMIN') && $_GET['m']=='other' && $_GET['p']=='extension_template') {
 

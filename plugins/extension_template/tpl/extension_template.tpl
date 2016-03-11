@@ -17,6 +17,25 @@
 </div>
 <!-- END: NOJQUERY -->
 <!-- BEGIN: JQUERY -->
+<noscript>
+<div id="module_settings" class="accordion in collapse" style="height: auto;">
+	<div class="accordion-group block">
+		<div class="accordion-heading">
+			<h3 class="<!-- IF {PHP.et_thememode} == 1 -->nomargins<!-- ELSE --><!-- ENDIF -->">
+				{PHP.L.plu_title}
+			</h3>
+		</div>
+		<div class="accordion-body collapse in" id="main_settings">
+			<div class="accordion-inner margin_theme{PHP.et_thememode}">{PHP.L.mplug_nojquery}</div>
+			<!-- /.accordion-inner -->
+		</div>
+		<!-- /.section1 -->
+	</div>
+	<!-- /.accordion-group -->
+</div>
+
+</noscript>
+
 <script type="text/javascript">
 String.prototype.arg = function() {
     var i = -1, args = arguments;
@@ -26,7 +45,7 @@ String.prototype.arg = function() {
 };
 
 $(document).ready( function() {
-
+	$('.outer-script').show();
 	/* 	Bootstrap style accordion animation code */
 	$('.accordion .accordion-inner').hide();
 	$('.accordion .accordion-heading a.accordion-toggle').addClass('collapsed');
@@ -77,10 +96,11 @@ $(document).ready( function() {
 
 	$('.pid_1,.pid_3,.pid_4').hide();
 
-	var valold=$('#pni').val().replace(/[^a-z0-9_]/ig,'');;
+	var re_extname = {PHP.ext_name_re};
+	var valold=$('#pni').val().replace(re_extname,'');
 	// track extension filename change
 	$('#pni').keyup(function(){
-		var val = this.value.replace(/[^a-z0-9_]/ig,'');
+		var val = this.value.replace(re_extname,'');
 		if (val !== valold) {
 			valold = val;
 			this.value = val;
@@ -89,7 +109,7 @@ $(document).ready( function() {
 			$('#id_3').val(val+'_');
 		}
 	}).change(function(){
- 		if (this.value.replace(/[^a-z0-9_]/ig,'') == '') {
+ 		if (this.value.replace(re_extname,'') == '') {
  			val = 'pluginname';
 			this.value = val;
 			$('.ttl').text(val);
@@ -148,6 +168,7 @@ $(document).ready( function() {
 });
 </script>
 
+<div class="outer-script" style="display:none;">
 <form id="frm1" class="ajax post-make_results" name="frm1" action="{PHP|cot_url('admin','m=other&p=extension_template&a=step2')}" method="post" style="margin-top:35px;">
 <div id="make_results"></div>
 <div class="typeselect">
@@ -200,6 +221,7 @@ $(document).ready( function() {
 <p class="valid"><input class="submit<!-- IF {PHP.et_thememode} == 2 --> inner-margins<!-- ELSE --><!-- ENDIF -->" type="submit" name="n" value="{PHP.L.mplug_goto2}" /></p>
 
 </form>
+</div>
 
 <!-- END: JQUERY -->
 <!-- END: MAIN -->
@@ -395,7 +417,7 @@ MMP_PLUGTITLE >> Plugin title
 MMP_PLUGDESC >> Plugin Description
 MMP_PLUGPART >>
 MMP_TAGS >> example.tpl:{EXAMPLE_TAG}
-MMP_COPYRIGHT >> Copyright (c) 2011-{PHP|date("Y")}
+MMP_COPYRIGHT >> Copyright (c) 2015-{PHP|date("Y")}
 MMP_AUTHOR_NAME >> {PHP.cfg.plugin.extension_template.author}
 MMP_NOTES >> If your enjoy my plugin please consider donating to help support future developments. <b>Thanks!</b> <br /> <a href="mailto:{PHP.cfg.plugin.extension_template.email}">{PHP.cfg.plugin.extension_template.email}</a>
 MMP_LICENSE >> Distributed under {PHP.cfg.plugin.extension_template.licence} license.
@@ -405,21 +427,23 @@ MMP_VERSION >> {PHP.cfg.plugin.extension_template.version}
 MMP_LANGDESC >>
 MMP_PLBEGIN >> [BEGIN_COT_EXT]
 MMP_PLEND >> [END_COT_EXT]
-MMP_VAR.NAME >>test
+MMP_VAR.NAME >> test
 MMP_VAR.VALUE >> TEST
-MMP_PBEGIN >> [BEGIN_COT_EXT_CONFIG]
-MMP_PEND >> [END_COT_EXT_CONFIG]
-MMP_PBEGIN_STRUCT >> [BEGIN_COT_EXT_CONFIG_STRUCTURE]
-MMP_PEND_STRUCT >> [END_COT_EXT_CONFIG_STRUCTURE]
-MMP_PLUGORDER >> 10
 MMP_SEDMARK >> COT_
 MMP_CODEMARK >> COT_CODE
 MMP_DIEMARK >> Wrong URL
+MMP_REQ_VERSION >> 0.9.18
+MMP_REQUIRES_PLUG >> 
 MMP_SQL >>
 MMP_AUTHG >> R1
 MMP_LOCKG >> W2345A
 MMP_AUTHM >> RW1
 MMP_LOCKM >> 2345
+MMP_PBEGIN >> [BEGIN_COT_EXT_CONFIG]
+MMP_PEND >> [END_COT_EXT_CONFIG]
+MMP_PBEGIN_STRUCT >> [BEGIN_COT_EXT_CONFIG_STRUCTURE]
+MMP_PEND_STRUCT >> [END_COT_EXT_CONFIG_STRUCTURE]
+MMP_PLUGORDER >> 10
 <!-- END: TPL_MARKS_SIENA -->
 <!-- BEGIN: ERROR -->
 <!-- END: ERROR -->

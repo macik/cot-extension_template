@@ -5,8 +5,8 @@ Code=extension_template
 Name=Extension template
 Category=development-maintenance
 Description=Generates sample (template) files for extension development
-Version=1.2.5
-Date=2014-aug-31
+Version=1.3.0
+Date=2016-mar-10
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2013, Andrey Matsovkin
 Notes=If your enjoy my plugin please consider donating to help support future developments. mailto: macik.spb@gmail.com   Thanks!
@@ -35,6 +35,6 @@ md_outside=06:radio:0,1:0:Place *.md files outside plugin folder
  * @license Distributed under BSD License.
 */
 
-if (!defined('COT_CODE')) { die('Wrong URL'); }
+defined('COT_CODE') or header('HTTP/1.1 '.$m='403 Forbidden') . die($m);
 
 

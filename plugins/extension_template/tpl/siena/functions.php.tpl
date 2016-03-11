@@ -1,10 +1,10 @@
-<!-- BEGIN: MAIN --><?php
+# inc/plugname.functions.php
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
 /**
  * {MMP_PLUGTITLE} plugin API
- * @package Plugins/{MMP_PLUGNAME|mb_convert_case($this, 2)}
- * @author {MMP_AUTHOR_NAME}
- * @copyright {MMP_COPYRIGHT}
- * @license {MMP_LICENSE}
+ *
+{FILE "{PHP.snippets}/phpdoc.snippet.tpl"}
  */
 
 defined('COT_CODE') or die('Wrong URL');

@@ -1,4 +1,6 @@
-<!-- BEGIN: MAIN --><?php
+# plugname.admin.conf.php
+<!-- BEGIN: MAIN -->
+{PHP.TAG}
 /* ====================
 {MMP_PLBEGIN}
 Hooks=admin.config.edit.loop
@@ -8,13 +10,10 @@ Hooks=admin.config.edit.loop
 /**
  * Part for extend {MMP_PLUGTITLE} settings screen.
  *
- * @package {MMP_PLUGNAME}
- * @author {MMP_AUTHOR_NAME}
- * @copyright {MMP_COPYRIGHT}
- * @license {MMP_LICENSE}
+{FILE "{PHP.snippets}/phpdoc.snippet.tpl"}
  */
 
-(defined('{MMP_CODEMARK}') && defined('{MMP_SEDMARK}ADMIN')) or die('Wrong URL.');
+(defined('{MMP_CODEMARK}') && defined('{MMP_SEDMARK}ADMIN')) or {FILE "{PHP.snippets}/die.snippet.tpl"}
 $plug_name = '{MMP_PLUGNAME}';
 
 $dem_cfg = $cfg['plugin'][$plug_name];
