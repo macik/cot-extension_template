@@ -40,7 +40,7 @@ $L['mplug_common'] = 'Общие файлы плагина';
 
 $L['mplug_mdfiles'] = 'Дополнительные файлы ';
 $L['mplug_mddesc'] = 'Файл Markdown с описанием плагина';
-$L['mplug_mdvers'] = 'Файл истории изменения версий';
+$L['mplug_mdvers'] = 'Лог изменений';
 
 $L['mplug_error'] = 'Ошибка: ';
 $L['mplug_nofolder'] = 'Ошибка: Каталог "{$folder}" не найден';

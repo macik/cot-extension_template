@@ -18,11 +18,11 @@ Lock_members=12345
 
 [BEGIN_COT_EXT_CONFIG]
 version=01:string::1.0.0:Initial version of plugin
-author=02:string::Your Name:Author name
-email=03:string::your_email@example.com:Your E-mail
+author=02:string::Author Name:Author name
+email=03:string::author_email@example.com:Author E-mail
 licence=04:select:MIT,GPL,BSD,CC-BY-SA:BSD:Licence type
 outputdir=05:string::datas\created\:Folder for output files
-md_outside=06:radio:0,1:0:Place *.md files outside plugin folder
+md_outside=06:radio::0:Place *.md files outside plugin folder
 [END_COT_EXT_CONFIG]
 ==================== */
 

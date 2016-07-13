@@ -320,8 +320,8 @@ $(document).ready( function() {
     	</label>
     	<br/>
     	<label>
-    		<input class="add" type="checkbox" name="plf[misc][versions.md]" value="1" />
-    		versions.md - {PHP.L.mplug_mdvers}
+    		<input class="add" type="checkbox" name="plf[misc][CHANGELOG.md]" value="1" />
+    		CHANGELOG.md - {PHP.L.mplug_mdvers}
     	</label>
     	<br/>
 	</div>

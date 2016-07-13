@@ -40,7 +40,7 @@ $L['mplug_common'] = 'Shared extension files ';
 
 $L['mplug_mdfiles'] = 'Other files ';
 $L['mplug_mddesc'] = 'Description file for plugin';
-$L['mplug_mdvers'] = 'History of version changes';
+$L['mplug_mdvers'] = 'Сhanges log file';
 
 $L['mplug_error'] = 'Error: ';
 $L['mplug_nofolder'] = 'Error: Folder "{$folder}" not exists';

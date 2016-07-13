@@ -28,7 +28,7 @@ Current version {MMP_VERSION} requires Cotonti Siena v
 
 ### Compatibility
 
-Some notes for compatibility with versions and themes.
+Some notes for compatibility across versions and themes.
 
 
 ### Comments
@@ -62,6 +62,11 @@ Author
 ------
 
 [{MMP_AUTHOR_NAME}](https://github.com/macik/)
+
+Credits
+-------
+
+* 
 
 References
 ----------

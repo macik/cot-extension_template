@@ -25,21 +25,6 @@ defined('COT_CODE') or header('HTTP/1.1 '.$m='403 Forbidden') . die($m);
 *  + add links to add addition parts (ajax, tools, rc)
 *  + close accordion on «generate» press
 *
-* DONE:
-*  + add output total size of all files
- * + do not clear setting after plugin created
- * + fix Siena/Genao mode switching
-*  + added LOG view without settings reset
-*  + add support for Bootstrap themes accordion support (Foster theme and Bootstrap theme)
-*  + add support for Priori support
-*  + refactoring
-*  + add cot_import
-*  + add custom part creating with using hook name parsed from filename
-*  + add sample plugin icon
-*  + make default CSS and TPL file creation on TPL folder
-*  + added sample markdown files for readme and versions
-*  + design structure table on creation LOG page
-*
 **/
 
 $plug_name = 'extension_template';
